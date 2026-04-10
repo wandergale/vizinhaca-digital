@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  LEADER
+  VOLUNTEER
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model User {
+  id            String         @id @default(uuid())
+  name          String
+  email         String         @unique
+  password      String
+  role          Role           @default(VOLUNTEER)
+  createdAt     DateTime       @default(now())
+  actions       Action[]
+  registrations Registration[]
+}
+
+model Action {
+  id            String         @id @default(uuid())
+  title         String
+  description   String
+  date          DateTime
+  location      String
+  priority      Priority       @default(MEDIUM)
+  createdBy     User           @relation(fields: [createdById], references: [id])
+  createdById   String
+  createdAt     DateTime       @default(now())
+  registrations Registration[]
+}
+
+model Registration {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  action    Action   @relation(fields: [actionId], references: [id])
+  actionId  String
+  createdAt DateTime @default(now())
+}
