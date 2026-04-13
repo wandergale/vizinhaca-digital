@@ -35,6 +35,24 @@ vizinhaca-digital/
     ├── .env.example
     └── package.json
 ```
+**Funcionalidade Específica**
+
+**Backend (Node.js + Express + Prisma + PostgreSQL)**
+- src/routes/ → Define as rotas da API (ex.: /users, /actions, /registrations).
+- src/controllers/ → Contém a lógica de cada rota, ou seja, o que acontece quando um endpoint é chamado.
+- src/middlewares/ → Funções que interceptam requisições antes de chegar ao controller (ex.: autenticação JWT, verificação de permissões).
+- src/app.js → Configuração principal do Express (middlewares globais, uso de rotas, etc.).
+- prisma/schema.prisma → Define os modelos do banco de dados (User, Action, Registration).
+- server.js → Ponto de entrada do servidor, inicializa o Express e conecta ao banco.
+- .env.example → Exemplo de variáveis de ambiente (credenciais do banco, porta do servidor, etc.).
+
+**Frontend (React + Vite)**
+- src/pages/ → Páginas principais da aplicação (Login, Home, Actions, ActionDetail).
+- src/components/ → Componentes reutilizáveis (botões, formulários, cabeçalhos).
+- src/services/api.js → Configuração do Axios para consumir a API do backend.
+- App.jsx → Define as rotas e a estrutura principal da aplicação.
+- main.jsx → Ponto de entrada do React, renderiza o App.
+- .env.example → Exemplo de variáveis de ambiente (URL da API, etc.).
 
 ## Como rodar
 
