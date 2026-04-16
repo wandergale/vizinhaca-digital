@@ -10,35 +10,48 @@ Sistema web de cadastro e agendamento de ações comunitárias foi pensado para 
 
 ## Funcionalidade Inicial Básica
 
-Este módulo demonstra o fluxo contínuo básico inicial entre Página de Detalhes da Ação e Módulo de Inscrição.
-O objetivo é permitir que o usuário visualize informações de uma ação comunitária e, em seguida, se inscreva de forma simples.
+Este módulo demonstra o fluxo contínuo básico inicial entre Autenticação, Cadastro de Ações e Calendário.
+O objetivo é permitir que o usuário faça login, cadastre uma ação comunitária e visualize essas ações no calendário.
 
 **Objetivo**
 
 Essa é a primeira versão funcional básica do sistema, rodando apenas no navegador, sem necessidade de backend.
-Ela serve como funcionalidade inicial para validar o fluxo de interação entre detalhes da ação e inscrição.
+Ela serve como funcionalidade inicial para validar o fluxo de interação entre login → cadastro → calendário.
 
 # Estrutura Inicial 
 ```
 SISTEMA/
-├── inscricao.html          # Formulário de inscrição
-├── detalhes-acao.html      # Página com informações da ação
+├── html/
+│   ├── autenticacao.html      # Tela de login e criação de conta
+│   ├── cadastro-acoes.html    # Formulário para cadastrar ações comunitárias
+│   └── calendario.html        # Calendário para visualizar ações cadastradas
 ├── css/
-│   ├── inscricao.css       # Estilos da página de inscrição
-│   └── detalhes-acao.css   # Estilos da página de detalhes
+│   ├── autenticacao.css       # Estilos da tela de login
+│   ├── cadastro-acoes.css     # Estilos da tela de cadastro
+│   └── calendario.css         # Estilos do calendário
 └── js/
-    ├── inscricao.js        # Lógica da inscrição (validação, mensagens)
-    └── detalhes-acao.js    # Lógica da página de detalhes (navegação)
+    ├── autenticacao.js        # Lógica de autenticação (login/cadastro)
+    ├── cadastro-acoes.js      # Validação e feedback do cadastro de ações
+    └── calendario.js          # Renderização do calendário e exibição das ações
 ```
 
 ## Estrutura Inicial (versão sem backend)
 Essa primeira versão é apenas para validar o fluxo básico de interação:
 
-- detalhes-acao.html → Página estática que mostra informações de uma ação comunitária (ex.: título, descrição, data, local).
-- inscricao.html → Formulário simples onde o voluntário coloca nome e e-mail.
-- detalhes-acao.js → Script que controla a navegação. Exemplo: quando o usuário clica em “Quero me inscrever”, abre a página de inscrição.
-- inscricao.js → Faz a validação dos campos (nome e e-mail). Exibe mensagem de sucesso ou erro.
-- CSS → Cada página tem seu estilo separado para manter organização.
+**Autenticação**
+- autenticacao.html → Página de login e criação de conta (formulário com usuário/senha).
+- autenticacao.css → Estilos da tela de login (layout, cores, mensagens de erro/sucesso).
+- autenticacao.js → Lógica de autenticação: valida credenciais, mostra feedback e salva sessão no localStorage.
+
+**Cadastro de Ações**
+- cadastro-acoes.html → Formulário para cadastrar ações comunitárias (título, descrição, data, local, prioridade).
+- cadastro-acoes.css → Estilos da tela de cadastro (formulário, botões, mensagens).
+- cadastro-acoes.js → Validação dos campos, exibição de mensagens de erro em vermelho ou modal ✔ de sucesso. Também verifica se o usuário está logado antes de permitir o acesso.
+
+**Calendário**
+- calendario.html → Estrutura do calendário, com botões para alternar visualização (mês, semana, dia) e modal de detalhes rápidos.
+- calendario.css → Estilos visuais do calendário (cores por prioridade, layout da grade, modal).
+- calendario.js → Lógica de renderização das ações no calendário, alternância de visualização e abertura de detalhes. Lê as ações cadastradas e posiciona nos dias corretos.
   
 **Procedimento para rodar o código**
 - Abra o explorador de arquivos (Windows).
@@ -49,10 +62,22 @@ Essa primeira versão é apenas para validar o fluxo básico de interação:
 - O sistema exibirá uma mensagem de sucesso ou erro.
 
 **Fluxo do Usuário**
-- Visualização: usuário acessa detalhes da ação.
-- Ação: clica em “Quero me inscrever”.
-- Formulário: abre página de inscrição.
-- Feedback: após preencher nome e e-mail, recebe mensagem de confirmação.
+**Login (autenticacao.html)**
+- Usuário acessa o sistema.
+- Faz login ou cria conta.
+- Se válido, sessão é salva no localStorage.
+  
+**Cadastro de Ações (cadastro-acoes.html)**
+- Apenas acessível se o usuário estiver logado.
+- Formulário com título, descrição, data, local e prioridade.
+- Validação feita pelo JS → mensagens de erro em vermelho ou modal ✔ de sucesso.
+
+**Calendário (calendario.html)**
+
+- Exibe os dias do mês atual em grade.
+- Mostra as ações cadastradas nas datas corretas.
+- Permite alternar entre visualização mensal, semanal e diária.
+- Ao clicar em uma ação, abre modal com detalhes rápidos e opção de ver detalhes completos.
 
 ---
 
