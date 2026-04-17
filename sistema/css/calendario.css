@@ -1,0 +1,79 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+.calendario-container {
+  width: 90%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.view-buttons button {
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.view-buttons button:hover {
+  background: #0056b3;
+}
+
+.semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#calendario {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.dia {
+  background: #fff;
+  border: 1px solid #ccc;
+  min-height: 80px;
+  padding: 5px;
+  text-align: left;
+  font-size: 12px;
+}
+
+.acao {
+  display: block;
+  margin-top: 5px;
+  padding: 3px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.acao.alta { background: red; }
+.acao.media { background: orange; }
+.acao.baixa { background: green; }
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background: #fff;
+  width: 300px;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}

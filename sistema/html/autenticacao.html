@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de Cadastro e Agendamento de Ações Comunitárias</title>
+  <link rel="stylesheet" href="../css/autenticacao.css">
+  <script src="../js/autenticacao.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Sistema de Cadastro e Agendamento de Ações Comunitárias</h2>
+    
+    <div class="tabs">
+      <button class="tab active" onclick="mostrarLogin()">Login</button>
+      <button class="tab" onclick="mostrarCadastro()">Criar Conta</button>
+    </div>
+
+    <div class="icon">
+      <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Usuário" width="80">
+    </div>
+
+    <form id="formLogin" class="form ativo">
+      <label for="emailLogin">Email/Usuário</label>
+      <input type="text" id="emailLogin" placeholder="Digite seu e-mail ou usuário" required>
+
+      <label for="senhaLogin">Senha</label>
+      <input type="password" id="senhaLogin" placeholder="Digite a senha" required minlength="6">
+
+      <a href="#" class="link">Esqueci minha senha</a>
+      <button type="submit">Fazer Login</button>
+      <p id="mensagemLogin"></p>
+    </form>
+
+    <form id="formCadastro" class="form">
+      <label for="emailCadastro">Email/Usuário</label>
+      <input type="text" id="emailCadastro" placeholder="Digite seu e-mail ou usuário" required>
+
+      <label for="senhaCadastro">Senha</label>
+      <input type="password" id="senhaCadastro" placeholder="Digite a senha" required minlength="6">
+
+      <label for="confirmarSenha">Confirmar Senha</label>
+      <input type="password" id="confirmarSenha" placeholder="Confirme a senha" required minlength="6">
+
+      <button type="submit">Criar Conta</button>
+      <p id="mensagemCadastro"></p>
+    </form>
+  </div>
+
+  <div id="confirmacao" class="modal">
+    <div class="modal-content">
+      <span class="checkmark">✔</span>
+      <p id="textoConfirmacao"></p>
+      <button onclick="fecharConfirmacao()">OK</button>
+    </div>
+  </div>
+</body>
+</html>

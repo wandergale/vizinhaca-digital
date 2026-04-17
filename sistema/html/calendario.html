@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calendário de Ações Comunitárias</title>
+  <link rel="stylesheet" href="../css/calendario.css">
+  <script src="../js/calendario.js" defer></script>
+</head>
+<body>
+  <div class="calendario-container">
+    <h2>Calendário de Ações Comunitárias</h2>
+
+    <div class="view-buttons">
+      <button onclick="mudarVisualizacao('mes')">Mês</button>
+      <button onclick="mudarVisualizacao('semana')">Semana</button>
+      <button onclick="mudarVisualizacao('dia')">Dia</button>
+    </div>
+
+    <div class="semana">
+      <div>Dom</div>
+      <div>Seg</div>
+      <div>Ter</div>
+      <div>Qua</div>
+      <div>Qui</div>
+      <div>Sex</div>
+      <div>Sáb</div>
+    </div>
+
+    <div id="calendario"></div>
+
+    <div id="detalhesRapidos" class="modal">
+      <div class="modal-content">
+        <h3 id="tituloAcao"></h3>
+        <p id="dataAcao"></p>
+        <p id="localAcao"></p>
+        <button onclick="abrirDetalhes()">Ver detalhes completos</button>
+        <button onclick="fecharModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
