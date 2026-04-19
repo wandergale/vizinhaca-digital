@@ -46,7 +46,7 @@ Essa primeira versão é apenas para validar o fluxo básico de interação:
 **Cadastro de Ações**
 - cadastro-acoes.html → Formulário para cadastrar ações comunitárias (título, descrição, data, local, prioridade).
 - cadastro-acoes.css → Estilos da tela de cadastro (formulário, botões, mensagens).
-- cadastro-acoes.js → Validação dos campos, exibição de mensagens de erro em vermelho ou modal ✔ de sucesso. Também verifica se o usuário está logado antes de permitir o acesso.
+- cadastro-acoes.js → Validação dos campos, exibição de mensagens de erro em vermelho ou modal de sucesso. Também verifica se o usuário está logado antes de permitir o acesso.
 
 **Calendário**
 - calendario.html → Estrutura do calendário, com botões para alternar visualização (mês, semana, dia) e modal de detalhes rápidos.
