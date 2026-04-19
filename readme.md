@@ -70,7 +70,7 @@ Essa primeira versão é apenas para validar o fluxo básico de interação:
 **Cadastro de Ações (cadastro-acoes.html)**
 - Apenas acessível se o usuário estiver logado.
 - Formulário com título, descrição, data, local e prioridade.
-- Validação feita pelo JS → mensagens de erro em vermelho ou modal ✔ de sucesso.
+- Validação feita pelo JS → mensagens de erro em vermelho ou modal de sucesso.
 
 **Calendário (calendario.html)**
 
