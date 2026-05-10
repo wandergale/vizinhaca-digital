@@ -1,6 +1,6 @@
 # Vizinhaca Digital
 
-Sistema web de cadastro e agendamento de ações comunitárias foi pensado para fortalecer a vida comunitária, oferecendo um sistema onde líderes podem organizar eventos e voluntários se inscrevem de forma prática. Ele une tecnologia moderna com propósito social. 
+Sistema web destinado ao cadastro e agendamento de ações comunitárias, com a finalidade de fortalecer a vida comunitária por meio da integração entre tecnologia e propósito social. Trata-se de uma solução que alia modernidade tecnológica e responsabilidade social, garantindo que líderes comunitários possam organizar eventos e que voluntários realizem inscrições de forma prática, eficiente e segura.
 
 ## Objetivos principais do sistema
 - Centralizar informações sobre ações comunitárias em um só lugar.
@@ -8,15 +8,83 @@ Sistema web de cadastro e agendamento de ações comunitárias foi pensado para 
 - Simplificar a participação de voluntários, permitindo inscrições rápidas.
 - Promover engajamento e aumentar a visibilidade das iniciativas locais.
 
+## Problemas que o Sistema Visa Resolver
+
+### 1. Fragmentação das informações
+- As informações sobre eventos comunitários encontram-se dispersas em redes sociais, grupos de mensagens e cartazes físicos.  
+- Isso dificulta o acesso dos voluntários e reduz a visibilidade das iniciativas.  
+- **Solução:** Centralização das informações em um único ambiente digital.
+
+### 2. Dificuldade na organização de eventos
+- Líderes comunitários enfrentam obstáculos para planejar, divulgar e gerenciar ações.  
+- **Solução:** Ferramentas estruturadas para cadastro de eventos, definição de prioridades e acompanhamento de inscrições.
+
+### 3. Baixa adesão de voluntários
+- A ausência de um processo simples de inscrição desestimula a participação.  
+- **Solução:** Formulários intuitivos e feedback imediato, tornando o processo acessível e confiável.
+
+### 4. Falta de rastreabilidade
+- Não há registros claros de quem participou, quais ações foram realizadas e qual foi o impacto.  
+- **Solução:** Histórico detalhado de ações, inscrições e relatórios, garantindo transparência.
+
+### 5. Carência de relatórios e métricas
+- Líderes comunitários carecem de dados consolidados para avaliar o sucesso das iniciativas.  
+- **Solução:** Relatórios estatísticos sobre número de inscritos, ações realizadas e engajamento.
+
+---
+
+## Impacto da Solução
+
+O sistema **Vizinhaça Digital** promove:  
+- Maior **eficiência organizacional** para líderes comunitários.  
+- Maior **engajamento voluntário** por meio de processos simplificados.  
+- **Transparência institucional**, com registros e relatórios acessíveis.  
+- **Segurança digital**, protegendo dados pessoais e garantindo confiabilidade.  
+- **Visibilidade ampliada** das iniciativas locais, fortalecendo o tecido comunitário.  
+
+---
+
+## Características Fundamentais
+
+### 1. Autenticação de usuários
+- Implementação de login seguro com armazenamento de sessão.  
+- Controle de acesso diferenciado por perfis (líderes comunitários e voluntários).  
+
+### 2. Cadastro de ações comunitárias
+- Formulário completo com campos de título, descrição, data, local e prioridade.  
+- Validação de dados em tempo real para evitar inconsistências.  
+- Associação da ação ao líder responsável, garantindo rastreabilidade.  
+
+### 3. Visualização em calendário
+- Interface interativa que permite alternar entre visualizações **mensal, semanal e diária**.  
+- Exibição das ações cadastradas nas datas correspondentes.  
+- Modal de detalhes rápidos com opção de acesso às informações completas.  
+
+### 4. Inscrição de voluntários
+- Processo simplificado de inscrição com poucos campos obrigatórios.  
+- Feedback imediato de sucesso ou erro, assegurando clareza ao usuário.  
+- Registro automático da inscrição vinculado ao voluntário e à ação selecionada.  
+
+### 5. Relatórios gerenciais
+- Estatísticas sobre número de inscritos por ação.  
+- Indicadores de ações realizadas e engajamento comunitário.  
+- Geração de relatórios consolidados para líderes comunitários, com gráficos e tabelas.
+
+---
+
 ## Funcionalidade Inicial Básica
 
 Este módulo demonstra o fluxo contínuo básico inicial entre Autenticação, Cadastro de Ações e Calendário.
 O objetivo é permitir que o usuário faça login, cadastre uma ação comunitária e visualize essas ações no calendário.
 
+---
+
 **Objetivo**
 
 Essa é a primeira versão funcional básica do sistema, rodando apenas no navegador, sem necessidade de backend.
 Ela serve como funcionalidade inicial para validar o fluxo de interação entre login → cadastro → calendário.
+
+---
 
 # Estrutura Inicial 
 ```
@@ -37,22 +105,22 @@ SISTEMA/
 
 ## Estrutura Inicial (versão sem backend)
 Essa primeira versão é apenas para validar o fluxo básico de interação:
-
+---
 **Autenticação**
 - autenticacao.html → Página de login e criação de conta (formulário com usuário/senha).
 - autenticacao.css → Estilos da tela de login (layout, cores, mensagens de erro/sucesso).
 - autenticacao.js → Lógica de autenticação: valida credenciais, mostra feedback e salva sessão no localStorage.
-
+---
 **Cadastro de Ações**
 - cadastro-acoes.html → Formulário para cadastrar ações comunitárias (título, descrição, data, local, prioridade).
 - cadastro-acoes.css → Estilos da tela de cadastro (formulário, botões, mensagens).
 - cadastro-acoes.js → Validação dos campos, exibição de mensagens de erro em vermelho ou modal de sucesso. Também verifica se o usuário está logado antes de permitir o acesso.
-
+---
 **Calendário**
 - calendario.html → Estrutura do calendário, com botões para alternar visualização (mês, semana, dia) e modal de detalhes rápidos.
 - calendario.css → Estilos visuais do calendário (cores por prioridade, layout da grade, modal).
 - calendario.js → Lógica de renderização das ações no calendário, alternância de visualização e abertura de detalhes. Lê as ações cadastradas e posiciona nos dias corretos.
-  
+ --- 
 **Procedimento para rodar o código**
 - Abra o explorador de arquivos (Windows).
 - Clique duas vezes em detalhes-acao.html.
@@ -60,18 +128,18 @@ Essa primeira versão é apenas para validar o fluxo básico de interação:
 - Clique em “Quero me inscrever” → o navegador abrirá inscricao.html.
 - Preencha os campos de nome e e-mail.
 - O sistema exibirá uma mensagem de sucesso ou erro.
-
+---
 **Fluxo do Usuário**
 **Login (autenticacao.html)**
 - Usuário acessa o sistema.
 - Faz login ou cria conta.
 - Se válido, sessão é salva no localStorage.
-  
+---  
 **Cadastro de Ações (cadastro-acoes.html)**
 - Apenas acessível se o usuário estiver logado.
 - Formulário com título, descrição, data, local e prioridade.
 - Validação feita pelo JS → mensagens de erro em vermelho ou modal de sucesso.
-
+---
 **Calendário (calendario.html)**
 
 - Exibe os dias do mês atual em grade.
@@ -80,14 +148,14 @@ Essa primeira versão é apenas para validar o fluxo básico de interação:
 - Ao clicar em uma ação, abre modal com detalhes rápidos e opção de ver detalhes completos.
 
 ---
-
+---
 ## Stack Final do Sistema
 
 - **Frontend:** React 18 + Vite
 - **Backend:** Node.js + Express
 - **Banco de dados:** PostgreSQL
 - **ORM:** Prisma
-
+---
 ## Estrutura Final (com backend e frontend)
 
 ```
@@ -114,6 +182,7 @@ vizinhaca-digital/
     ├── .env.example
     └── package.json
 ```
+---
 ## Funcionalidade Específica
 
 **Backend (Node.js + Express + Prisma + PostgreSQL)**
@@ -124,7 +193,8 @@ vizinhaca-digital/
 - prisma/schema.prisma → Define os modelos do banco de dados (User → pessoas cadastradas, Action → ações comunitárias, Registration → inscrições dos voluntários).
 - server.js → Ponto de entrada do servidor, inicializa o Express e conecta ao PostgreSQL.
 - .env.example → Exemplo de variáveis de ambiente (porta, credenciais do banco, secret JWT).
-  
+
+---
 **Frontend (React + Vite)**
 - src/pages/ → Páginas principais da aplicação: (Login.jsx: Página de autenticação de usuários (login e registro), Home.jsx: Página inicial (lista de ações comunitárias disponíveis), Actions.jsx: Página de gerenciamento de ações (voltada para líderes comunitários), ActionDetail.jsx: Página de detalhes de uma ação específica (informações completas e opção de inscrição).
 - src/components/ → Componentes reutilizáveis (botões, formulários, cabeçalhos, modais).
