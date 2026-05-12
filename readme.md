@@ -90,62 +90,111 @@ Ela serve como funcionalidade inicial para validar o fluxo de interação entre 
 ```
 SISTEMA/
 ├── html/
-│   ├── autenticacao.html      # Tela de login e criação de conta
-│   ├── cadastro-acoes.html    # Formulário para cadastrar ações comunitárias
-│   └── calendario.html        # Calendário para visualizar ações cadastradas
+│   ├── autenticacao.html
+│   ├── cadastro-acoes.html
+│   ├── calendario.html
+│   ├── edicao_cancelar.html
+│   └── inscricao-voluntario.html
 ├── css/
-│   ├── autenticacao.css       # Estilos da tela de login
-│   ├── cadastro-acoes.css     # Estilos da tela de cadastro
-│   └── calendario.css         # Estilos do calendário
+│   ├── autenticacao.css
+│   ├── cadastro-acoes.css
+│   ├── calendario.css
+│   ├── edicao-cancelar.css
+│   └── inscricao-voluntario.css
 └── js/
-    ├── autenticacao.js        # Lógica de autenticação (login/cadastro)
-    ├── cadastro-acoes.js      # Validação e feedback do cadastro de ações
-    └── calendario.js          # Renderização do calendário e exibição das ações
+├── autenticacao.js
+├── cadastro-acoes.js
+├── calendario.js
+├── edicao-cancelar.js
+└── inscricao-voluntario.js
 ```
-
 ## Estrutura Inicial (versão sem backend)
-Essa primeira versão é apenas para validar o fluxo básico de interação:
+
+- Esta primeira versão tem como objetivo validar o fluxo básico de interação entre **login → cadastro de ações → calendário → inscrição de voluntários → edição/cancelamento de inscrição**.
+- Todo o funcionamento ocorre diretamente no navegador, utilizando **HTML, CSS e JavaScript**, sem necessidade de banco de dados.
 ---
 **Autenticação**
 - autenticacao.html → Página de login e criação de conta (formulário com usuário/senha).
 - autenticacao.css → Estilos da tela de login (layout, cores, mensagens de erro/sucesso).
 - autenticacao.js → Lógica de autenticação: valida credenciais, mostra feedback e salva sessão no localStorage.
+**Função principal:** Garantir que apenas usuários autenticados possam acessar funcionalidades restritas, como cadastro de ações.
 ---
 **Cadastro de Ações**
 - cadastro-acoes.html → Formulário para cadastrar ações comunitárias (título, descrição, data, local, prioridade).
 - cadastro-acoes.css → Estilos da tela de cadastro (formulário, botões, mensagens).
 - cadastro-acoes.js → Validação dos campos, exibição de mensagens de erro em vermelho ou modal de sucesso. Também verifica se o usuário está logado antes de permitir o acesso.
+**Função principal:** Permitir que líderes comunitários registrem ações de forma estruturada e rastreável.
 ---
 **Calendário**
 - calendario.html → Estrutura do calendário, com botões para alternar visualização (mês, semana, dia) e modal de detalhes rápidos.
 - calendario.css → Estilos visuais do calendário (cores por prioridade, layout da grade, modal).
 - calendario.js → Lógica de renderização das ações no calendário, alternância de visualização e abertura de detalhes. Lê as ações cadastradas e posiciona nos dias corretos.
+**Função principal:** Oferecer uma visão clara e organizada das ações comunitárias cadastradas.
  --- 
-**Procedimento para rodar o código**
+**Inscrição de Voluntários**
+- inscricao-voluntario.html → Página de inscrição, com formulário simples (nome e e-mail).
+- inscricao-voluntario.css → Estilos da tela de inscrição (layout limpo, mensagens de sucesso/erro).
+- inscricao-voluntario.js → Lógica da inscrição: valida dados, registra no localStorage e exibe feedback imediato.
+**Função principal:** Simplificar o processo de participação dos voluntários, garantindo clareza e confiabilidade.
+
+---
+**Edição/Cancelamento de Inscrição**
+- edicao_cancelar.html → Página para o voluntário editar ou cancelar sua inscrição em uma ação comunitária.
+- edicao-cancelar.css → Estilos da tela de edição/cancelamento (formulário de edição, botões de confirmação).
+- edicao-cancelar.js → Lógica para atualizar ou excluir inscrições, com confirmação antes de aplicar mudanças. Alterações são refletidas no histórico de inscrições armazenado no localStorage.
+**Função principal:** Garantir autonomia ao voluntário para gerenciar sua participação em ações comunitárias.
+
+---
+## Procedimento para rodar o código
 - Abra o explorador de arquivos (Windows).
-- Clique duas vezes em detalhes-acao.html.
-- O navegador (Chrome) exibirá os detalhes da ação.
-- Clique em “Quero me inscrever” → o navegador abrirá inscricao.html.
+- Clique duas vezes em `autenticacao.html` para iniciar o sistema.
+- Faça login ou crie uma conta.
+- Após login, acesse `cadastro-acoes.html` para cadastrar novas ações comunitárias.
+- Visualize as ações no `calendario.html`.
+- Clique em uma ação → o navegador exibirá os detalhes e a opção “Quero me inscrever”.
+- O navegador abrirá `inscricao-voluntario.html`.
 - Preencha os campos de nome e e-mail.
 - O sistema exibirá uma mensagem de sucesso ou erro.
----
-**Fluxo do Usuário**
-**Login (autenticacao.html)**
-- Usuário acessa o sistema.
-- Faz login ou cria conta.
-- Se válido, sessão é salva no localStorage.
----  
-**Cadastro de Ações (cadastro-acoes.html)**
-- Apenas acessível se o usuário estiver logado.
-- Formulário com título, descrição, data, local e prioridade.
-- Validação feita pelo JS → mensagens de erro em vermelho ou modal de sucesso.
----
-**Calendário (calendario.html)**
+- Caso queira alterar ou cancelar sua inscrição, abra `edicao_cancelar.html`.
 
-- Exibe os dias do mês atual em grade.
-- Mostra as ações cadastradas nas datas corretas.
-- Permite alternar entre visualização mensal, semanal e diária.
-- Ao clicar em uma ação, abre modal com detalhes rápidos e opção de ver detalhes completos.
+---
+
+## Fluxo do Usuário
+**Login (autenticacao.html)**  
+- Usuário acessa o sistema.  
+- Faz login ou cria conta.  
+- Se válido, sessão é salva no `localStorage`.  
+
+---
+
+**Cadastro de Ações (cadastro-acoes.html)**  
+- Apenas acessível se o usuário estiver logado.  
+- Formulário com título, descrição, data, local e prioridade.  
+- Validação feita pelo JS → mensagens de erro em vermelho ou modal de sucesso.  
+
+---
+
+**Calendário (calendario.html)**  
+- Exibe os dias do mês atual em grade.  
+- Mostra as ações cadastradas nas datas corretas.  
+- Permite alternar entre visualização mensal, semanal e diária.  
+- Ao clicar em uma ação, abre modal com detalhes rápidos e opção de inscrição.  
+
+---
+
+**Inscrição de Voluntários (inscricao-voluntario.html)**  
+- Usuário preenche nome e e-mail.  
+- Sistema valida os dados e confirma inscrição.  
+- Feedback imediato: mensagem de sucesso ou erro.  
+- Inscrição vinculada à ação escolhida e registrada no `localStorage`.  
+
+---
+
+**Edição/Cancelamento de Inscrição (edicao_cancelar.html)**  
+- Voluntário acessa suas inscrições.  
+- Pode editar dados (nome, e-mail) ou cancelar inscrição.  
+- Cancelamento exige confirmação antes de excluir.  
+- Alterações são refletidas imediatamente no sistema.  
 
 ---
 ---
