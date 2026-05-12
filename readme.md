@@ -123,26 +123,26 @@ SISTEMA/
 - cadastro-acoes.html → Formulário para cadastrar ações comunitárias (título, descrição, data, local, prioridade).
 - cadastro-acoes.css → Estilos da tela de cadastro (formulário, botões, mensagens).
 - cadastro-acoes.js → Validação dos campos, exibição de mensagens de erro em vermelho ou modal de sucesso. Também verifica se o usuário está logado antes de permitir o acesso.
-**Função principal:** Permitir que líderes comunitários registrem ações de forma estruturada e rastreável.
+- **Função principal:** Permitir que líderes comunitários registrem ações de forma estruturada e rastreável.
 ---
 **Calendário**
 - calendario.html → Estrutura do calendário, com botões para alternar visualização (mês, semana, dia) e modal de detalhes rápidos.
 - calendario.css → Estilos visuais do calendário (cores por prioridade, layout da grade, modal).
 - calendario.js → Lógica de renderização das ações no calendário, alternância de visualização e abertura de detalhes. Lê as ações cadastradas e posiciona nos dias corretos.
-**Função principal:** Oferecer uma visão clara e organizada das ações comunitárias cadastradas.
+- **Função principal:** Oferecer uma visão clara e organizada das ações comunitárias cadastradas.
  --- 
 **Inscrição de Voluntários**
 - inscricao-voluntario.html → Página de inscrição, com formulário simples (nome e e-mail).
 - inscricao-voluntario.css → Estilos da tela de inscrição (layout limpo, mensagens de sucesso/erro).
 - inscricao-voluntario.js → Lógica da inscrição: valida dados, registra no localStorage e exibe feedback imediato.
-**Função principal:** Simplificar o processo de participação dos voluntários, garantindo clareza e confiabilidade.
+- **Função principal:** Simplificar o processo de participação dos voluntários, garantindo clareza e confiabilidade.
 
 ---
 **Edição/Cancelamento de Inscrição**
 - edicao_cancelar.html → Página para o voluntário editar ou cancelar sua inscrição em uma ação comunitária.
 - edicao-cancelar.css → Estilos da tela de edição/cancelamento (formulário de edição, botões de confirmação).
 - edicao-cancelar.js → Lógica para atualizar ou excluir inscrições, com confirmação antes de aplicar mudanças. Alterações são refletidas no histórico de inscrições armazenado no localStorage.
-**Função principal:** Garantir autonomia ao voluntário para gerenciar sua participação em ações comunitárias.
+- **Função principal:** Garantir autonomia ao voluntário para gerenciar sua participação em ações comunitárias.
 
 ---
 ## Procedimento para rodar o código
