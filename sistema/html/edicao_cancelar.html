@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerenciar Inscrições</title>
+  <link rel="stylesheet" href="../css/edicao-cancelar.css">
+</head>
+<body>
+  <div class="main">
+    <h1>Minhas Inscrições</h1>
+    <table class="inscricoes">
+      <thead>
+        <tr>
+          <th>Ação</th>
+          <th>Data</th>
+          <th>Local</th>
+          <th>Opções</th>
+        </tr>
+      </thead>
+      <tbody id="listaInscricoes">
+      </tbody>
+    </table>
+
+    <div id="feedback"></div>
+  </div>
+
+  <div class="modal" id="modalEdicao">
+    <div class="modal-content">
+      <h2>Editar Inscrição</h2>
+      <form id="formEdicao" onsubmit="return salvarEdicao()">
+        <label for="nomeEdicao">Nome</label>
+        <input type="text" id="nomeEdicao" required>
+
+        <label for="emailEdicao">E-mail</label>
+        <input type="email" id="emailEdicao" required>
+
+        <button type="submit" class="confirmar">Salvar</button>
+        <button type="button" class="cancelar" onclick="fecharModal()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="modalCancelamento">
+    <div class="modal-content">
+      <h2>Cancelar Inscrição</h2>
+      <p>Tem certeza que deseja cancelar sua inscrição?</p>
+      <button class="confirmar" onclick="confirmarCancelamento()">Sim</button>
+      <button class="cancelar" onclick="fecharModal()">Não</button>
+    </div>
+  </div>
+
+  <script src="../js/edicao-cancelar.js"></script>
+</body>
+</html>
