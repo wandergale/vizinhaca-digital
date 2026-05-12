@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscrição de Ações Comunitárias</title>
+  <link rel="stylesheet" href="../css/inscricao-voluntario.css">
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Sistema de Cadastro e Agendamento de Ações Comunitárias</h2>
+    <ul>
+      <li>Início</li>
+      <li>Administração</li>
+      <li>Períodos</li>
+      <li>Agendamentos</li>
+      <li class="active">Ações</li>
+      <li>Sair</li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <h1>Ficha de Inscrição</h1>
+    <form id="formInscricao" onsubmit="return confirmarInscricao()">
+      <label for="nome">Nome Completo</label>
+      <input type="text" id="nome" required>
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" required>
+
+      <label for="acao">Escolher Ação</label>
+      <select id="acao" required>
+        <option value="">Selecione...</option>
+        <option>Ação 1 — Revitalização Praça Central — 11/05/2026</option>
+        <option>Ação 2 — Revitalização Praça Central — 11/05/2026</option>
+        <option>Ação 3 — Revitalização Praça Central — 13/05/2026</option>
+        <option>Ação 4 — Revitalização Praça Central — 13/05/2026</option>
+      </select>
+
+      <div class="consent">
+        <input type="checkbox" id="consente" required>
+        <label for="consente">Li e aceito os termos do voluntariado</label>
+      </div>
+
+      <button type="submit" class="confirmar">Confirmar Inscrição</button>
+    </form>
+
+    <h2>Ações Disponíveis</h2>
+    <table class="acoes">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Descrição</th>
+          <th>Data</th>
+          <th>Local</th>
+          <th>Prioridade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr onclick="abrirModal('Ação 1','Reunião','01/01/2026','Área Verde','Média')">
+          <td>Ação 1</td>
+          <td>Reunião</td>
+          <td>01/01/2026</td>
+          <td>Área Verde</td>
+          <td>Média</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="tabs">
+        <button class="active" onclick="mostrarTab('detalhes')">DETALHES</button>
+        <button onclick="mostrarTab('mapa')">MAPA</button>
+      </div>
+      <div class="tab" id="detalhes">
+        <h2 id="titulo"></h2>
+        <p><strong>Descrição:</strong> <span id="descricao"></span></p>
+        <p><strong>Data:</strong> <span id="data"></span></p>
+        <p><strong>Local:</strong> <span id="local"></span></p>
+        <p><strong>Prioridade:</strong> <span id="prioridade"></span></p>
+        <button class="inscrever" onclick="confirmarInscricao()">Inscrever</button>
+      </div>
+      <div class="tab" id="mapa" style="display:none;">
+        <div class="mapa">
+          <div class="marker">1</div>
+        </div>
+        <button class="inscrever" onclick="confirmarInscricao()">Inscrever</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modalConfirmacao">
+    <div class="modal-content">
+      <h2>Inscrição Confirmada!</h2>
+      <p id="dadosInscricao"></p>
+      <button class="fechar" onclick="fecharConfirmacao()">Fechar</button>
+    </div>
+  </div>
+
+  <script src="../js/inscricao-voluntario.js"></script>
+</body>
+</html>
