@@ -106,7 +106,7 @@ SISTEMA/
 │   ├── cadastro-acoes.js
 │   ├── calendario.js
 │   ├──  edicao-cancelar.js
-│   ├── inscricao-voluntario.js
+│   └── inscricao-voluntario.js
 ```
 ## Estrutura Inicial (versão sem backend)
 
