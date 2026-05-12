@@ -102,11 +102,11 @@ SISTEMA/
 │   ├── edicao-cancelar.css
 │   └── inscricao-voluntario.css
 └── js/
-├── autenticacao.js
-├── cadastro-acoes.js
-├── calendario.js
-├── edicao-cancelar.js
-└── inscricao-voluntario.js
+│   ├──  autenticacao.js
+│   ├── cadastro-acoes.js
+│   ├── calendario.js
+│   ├──  edicao-cancelar.js
+│   ├── inscricao-voluntario.js
 ```
 ## Estrutura Inicial (versão sem backend)
 
