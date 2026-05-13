@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Inscrição de Ações Comunitárias</title>
   <link rel="stylesheet" href="../css/inscricao-voluntario.css">
-
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
 <body>
@@ -33,9 +32,17 @@
       <select id="acao" required>
         <option value="">Selecione...</option>
         <option>Ação 1 — Revitalização Praça Central — 11/05/2026</option>
-        <option>Ação 2 — Revitalização Praça Central — 11/05/2026</option>
-        <option>Ação 3 — Revitalização Praça Central — 13/05/2026</option>
-        <option>Ação 4 — Revitalização Praça Central — 13/05/2026</option>
+        <option>Ação 2 — Mutirão de Limpeza — 12/05/2026</option>
+        <option>Ação 3 — Plantio de Árvores — 13/05/2026</option>
+        <option>Ação 4 — Oficina de Reciclagem — 14/05/2026</option>
+      </select>
+
+      <!-- NOVO CAMPO DE PRIORIDADE -->
+      <label for="prioridade">Nível de Prioridade</label>
+      <select id="prioridade" required>
+        <option value="Alta">Alta</option>
+        <option value="Média">Média</option>
+        <option value="Baixa">Baixa</option>
       </select>
 
       <div class="consent">
@@ -58,17 +65,32 @@
         </tr>
       </thead>
       <tbody>
-        <tr onclick="abrirModal('Ação 1','Reunião','01/01/2026','Praça Central','Média')">
+        <tr onclick="abrirModal('Ação 1','Revitalização da Praça','11/05/2026','Praça Central','Alta')">
           <td>Ação 1</td>
-          <td>Reunião</td>
-          <td>01/01/2026</td>
+          <td>Revitalização da Praça</td>
+          <td>11/05/2026</td>
           <td>Praça Central</td>
+          <td>Alta</td>
+        </tr>
+        <tr onclick="abrirModal('Ação 2','Mutirão de Limpeza','12/05/2026','Escola Municipal','Média')">
+          <td>Ação 2</td>
+          <td>Mutirão de Limpeza</td>
+          <td>12/05/2026</td>
+          <td>Escola Municipal</td>
           <td>Média</td>
+        </tr>
+        <tr onclick="abrirModal('Ação 3','Plantio de Árvores','13/05/2026','Parque Verde','Baixa')">
+          <td>Ação 3</td>
+          <td>Plantio de Árvores</td>
+          <td>13/05/2026</td>
+          <td>Parque Verde</td>
+          <td>Baixa</td>
         </tr>
       </tbody>
     </table>
   </div>
 
+  <!-- Modal de detalhes -->
   <div class="modal" id="modal">
     <div class="modal-content">
       <div class="tabs">
@@ -84,13 +106,13 @@
         <button class="inscrever" onclick="confirmarInscricao()">Inscrever</button>
       </div>
       <div class="tab" id="mapa" style="display:none;">
-        <!-- Leaflet Map -->
         <div id="leafletMap" style="width:100%; height:300px;"></div>
         <button class="inscrever" onclick="confirmarInscricao()">Inscrever</button>
       </div>
     </div>
   </div>
 
+  <!-- Modal de confirmação -->
   <div class="modal" id="modalConfirmacao">
     <div class="modal-content">
       <h2>Inscrição Confirmada!</h2>
@@ -100,12 +122,10 @@
   </div>
 
   <script src="../js/inscricao-voluntario.js"></script>
-
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     function initLeafletMap() {
       const pracaCentral = [-9.916, -36.355];
-
       const map = L.map('leafletMap').setView(pracaCentral, 15);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
