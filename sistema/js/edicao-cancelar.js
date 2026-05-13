@@ -1,58 +1,65 @@
-let minhasInscricoes = JSON.parse(localStorage.getItem("inscricoes")) || [];
 let inscricaoSelecionada = null;
 
 function carregarInscricoes() {
-  const tbody = document.getElementById("listaInscricoes");
-  tbody.innerHTML = "";
-  minhasInscricoes.forEach(insc => {
+  const inscricoes = JSON.parse(localStorage.getItem("inscricoes")) || [];
+  const lista = document.getElementById("listaInscricoes");
+  lista.innerHTML = "";
+
+  inscricoes.forEach(inscricao => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${insc.acao}</td>
-      <td>${insc.data}</td>
-      <td>${insc.local}</td>
+      <td>${inscricao.acao}</td>
+      <td>${inscricao.data}</td>
+      <td>${inscricao.local}</td>
       <td>
-        <button onclick="abrirEdicao(${insc.id})">Editar</button>
-        <button onclick="abrirCancelamento(${insc.id})">Cancelar</button>
+        <button onclick="abrirEdicao(${inscricao.id})">Editar</button>
+        <button onclick="abrirCancelamento(${inscricao.id})">Cancelar</button>
       </td>
     `;
-    tbody.appendChild(tr);
+    lista.appendChild(tr);
   });
 }
 
 function abrirEdicao(id) {
-  inscricaoSelecionada = minhasInscricoes.find(i => i.id === id);
-  document.getElementById("nomeEdicao").value = inscricaoSelecionada.nome;
-  document.getElementById("emailEdicao").value = inscricaoSelecionada.email;
-  document.getElementById("modalEdicao").style.display = "flex";
+  const inscricoes = JSON.parse(localStorage.getItem("inscricoes")) || [];
+  inscricaoSelecionada = inscricoes.find(i => i.id === id);
+
+  if (inscricaoSelecionada) {
+    document.getElementById("nomeEdicao").value = inscricaoSelecionada.nome;
+    document.getElementById("emailEdicao").value = inscricaoSelecionada.email;
+    document.getElementById("modalEdicao").style.display = "flex";
+  }
 }
 
 function salvarEdicao() {
-  inscricaoSelecionada.nome = document.getElementById("nomeEdicao").value;
-  inscricaoSelecionada.email = document.getElementById("emailEdicao").value;
-  atualizarStorage();
+  const inscricoes = JSON.parse(localStorage.getItem("inscricoes")) || [];
+  const index = inscricoes.findIndex(i => i.id === inscricaoSelecionada.id);
+
+  if (index !== -1) {
+    inscricoes[index].nome = document.getElementById("nomeEdicao").value;
+    inscricoes[index].email = document.getElementById("emailEdicao").value;
+    localStorage.setItem("inscricoes", JSON.stringify(inscricoes));
+    document.getElementById("feedback").textContent = "Inscrição atualizada com sucesso!";
+  }
+
   fecharModal();
   carregarInscricoes();
-  mostrarFeedback("Inscrição atualizada com sucesso!", "sucesso");
   return false;
 }
 
 function abrirCancelamento(id) {
-  inscricaoSelecionada = minhasInscricoes.find(i => i.id === id);
+  inscricaoSelecionada = id;
   document.getElementById("modalCancelamento").style.display = "flex";
 }
 
 function confirmarCancelamento() {
-  minhasInscricoes = minhasInscricoes.filter(i => i.id !== inscricaoSelecionada.id);
-  atualizarStorage();
+  let inscricoes = JSON.parse(localStorage.getItem("inscricoes")) || [];
+  inscricoes = inscricoes.filter(i => i.id !== inscricaoSelecionada);
+  localStorage.setItem("inscricoes", JSON.stringify(inscricoes));
+
+  document.getElementById("feedback").textContent = "Inscrição cancelada com sucesso!";
   fecharModal();
   carregarInscricoes();
-  mostrarFeedback("Inscrição cancelada com sucesso!", "sucesso");
-}
-
-function mostrarFeedback(msg, tipo) {
-  const fb = document.getElementById("feedback");
-  fb.textContent = msg;
-  fb.className = tipo;
 }
 
 function fecharModal() {
@@ -60,8 +67,11 @@ function fecharModal() {
   document.getElementById("modalCancelamento").style.display = "none";
 }
 
-function atualizarStorage() {
-  localStorage.setItem("inscricoes", JSON.stringify(minhasInscricoes));
-}
+window.onclick = function(event) {
+  const modalEdicao = document.getElementById("modalEdicao");
+  const modalCancelamento = document.getElementById("modalCancelamento");
+  if (event.target === modalEdicao) modalEdicao.style.display = "none";
+  if (event.target === modalCancelamento) modalCancelamento.style.display = "none";
+};
 
-window.onload = carregarInscricoes; 
+window.onload = carregarInscricoes;
