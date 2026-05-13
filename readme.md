@@ -140,7 +140,7 @@ SISTEMA/
 **Confirmação de Inscrição**
 - Depois que o voluntário envia o formulário em `inscricao-voluntario.html`, o sistema confere os dados informados e registra a participação no `localStorage`.
 - O usuário recebe um **retorno imediato**:
-  - Mensagem de êxito → indica que a inscrição foi concluída com sucesso.
+  - Mensagem de sucesso → indica que a inscrição foi concluída com sucesso.
   - Mensagem de alerta → informa falhas detectadas (ex.: campos obrigatórios não preenchidos).
 - Esse processo garante transparência e segurança na adesão às ações.  
 - **Função principal:** Assegurar que o participante tenha certeza instantânea sobre o resultado da inscrição, reforçando a confiança e estimulando o envolvimento comunitário.
