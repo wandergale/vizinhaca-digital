@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Inscrição de Ações Comunitárias</title>
   <link rel="stylesheet" href="../css/inscricao-voluntario.css">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
 <body>
   <div class="sidebar">
@@ -56,11 +58,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr onclick="abrirModal('Ação 1','Reunião','01/01/2026','Área Verde','Média')">
+        <tr onclick="abrirModal('Ação 1','Reunião','01/01/2026','Praça Central','Média')">
           <td>Ação 1</td>
           <td>Reunião</td>
           <td>01/01/2026</td>
-          <td>Área Verde</td>
+          <td>Praça Central</td>
           <td>Média</td>
         </tr>
       </tbody>
@@ -82,9 +84,8 @@
         <button class="inscrever" onclick="confirmarInscricao()">Inscrever</button>
       </div>
       <div class="tab" id="mapa" style="display:none;">
-        <div class="mapa">
-          <div class="marker">1</div>
-        </div>
+        <!-- Leaflet Map -->
+        <div id="leafletMap" style="width:100%; height:300px;"></div>
         <button class="inscrever" onclick="confirmarInscricao()">Inscrever</button>
       </div>
     </div>
@@ -99,5 +100,36 @@
   </div>
 
   <script src="../js/inscricao-voluntario.js"></script>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    function initLeafletMap() {
+      const pracaCentral = [-9.916, -36.355];
+
+      const map = L.map('leafletMap').setView(pracaCentral, 15);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      L.marker(pracaCentral).addTo(map)
+        .bindPopup('Praça Central')
+        .openPopup();
+    }
+
+    function mostrarTab(tab) {
+      document.getElementById("detalhes").style.display = tab === "detalhes" ? "block" : "none";
+      document.getElementById("mapa").style.display = tab === "mapa" ? "block" : "none";
+
+      const botoes = document.querySelectorAll(".tabs button");
+      botoes.forEach(btn => btn.classList.remove("active"));
+      if (tab === "detalhes") {
+        botoes[0].classList.add("active");
+      } else {
+        botoes[1].classList.add("active");
+        initLeafletMap();
+      }
+    }
+  </script>
 </body>
 </html>
