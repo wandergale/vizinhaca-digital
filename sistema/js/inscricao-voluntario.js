@@ -18,9 +18,11 @@ function mostrarTab(tab) {
     botoes[0].classList.add("active");
   } else {
     botoes[1].classList.add("active");
+    initLeafletMap();
   }
 }
 
+// Função para confirmar inscrição
 function confirmarInscricao() {
   const nome = document.getElementById("nome").value;
   const email = document.getElementById("email").value;
@@ -67,3 +69,17 @@ window.onclick = function(event) {
     modalConfirmacao.style.display = "none";
   }
 };
+
+function initLeafletMap() {
+  const pracaCentral = [-9.916, -36.355];
+
+  const map = L.map('leafletMap').setView(pracaCentral, 15);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  L.marker(pracaCentral).addTo(map)
+    .bindPopup('Praça Central')
+    .openPopup();
+}
