@@ -123,24 +123,11 @@ table.acoes tr:hover {
 .tab {
   padding: 20px;
 }
-.mapa {
+
+#leafletMap {
+  width: 100%;
   height: 300px;
-  background: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg') center/cover no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-.marker {
-  width: 20px;
-  height: 20px;
-  background: blue;
-  border-radius: 50%;
-  color: #fff;
-  text-align: center;
-  line-height: 20px;
-  font-size: 12px;
-  position: absolute;
+  border-radius: 6px;
 }
 
 #modalConfirmacao .modal-content {
