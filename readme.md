@@ -136,6 +136,14 @@ SISTEMA/
 - inscricao-voluntario.css → Estilos da tela de inscrição (layout limpo, mensagens de sucesso/erro).
 - inscricao-voluntario.js → Lógica da inscrição: valida dados, registra no localStorage e exibe feedback imediato.
 - **Função principal:** Simplificar o processo de participação dos voluntários, garantindo clareza e confiabilidade.
+---
+**Confirmação de Inscrição**
+- Depois que o voluntário envia o formulário em `inscricao-voluntario.html`, o sistema confere os dados informados e registra a participação no `localStorage`.
+- O usuário recebe um **retorno imediato**:
+  - Mensagem de êxito → indica que a inscrição foi concluída com sucesso.
+  - Mensagem de alerta → informa falhas detectadas (ex.: campos obrigatórios não preenchidos).
+- Esse processo garante transparência e segurança na adesão às ações.  
+- **Função principal:** Assegurar que o participante tenha certeza instantânea sobre o resultado da inscrição, reforçando a confiança e estimulando o envolvimento comunitário.
 
 ---
 **Edição/Cancelamento de Inscrição**
@@ -194,8 +202,15 @@ SISTEMA/
 - Voluntário acessa suas inscrições.  
 - Pode editar dados (nome, e-mail) ou cancelar inscrição.  
 - Cancelamento exige confirmação antes de excluir.  
-- Alterações são refletidas imediatamente no sistema.  
+- Alterações são refletidas imediatamente no sistema.
 
+**Confirmação de Inscrição (inscricao-voluntario.html)**
+- Após o voluntário preencher o formulário em `inscricao-voluntario.html`, o sistema valida os dados e registra a inscrição no `localStorage`.
+- O usuário recebe **feedback imediato**:
+  - Mensagem de sucesso: confirma que a inscrição foi realizada.
+  - Mensagem de erro: informa inconsistências (ex.: campos obrigatórios não preenchidos).
+- Esse retorno garante clareza e confiança no processo de participação.
+  
 ---
 ---
 ## Stack Final do Sistema
