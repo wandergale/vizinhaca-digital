@@ -3,6 +3,8 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Actions from './pages/Actions';
 import ActionDetail from './pages/ActionDetail';
+import Calendar from './pages/Calendar';
+import MyRegistrations from './pages/MyRegistrations';
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/actions" element={<Actions />} />
       <Route path="/actions/:id" element={<ActionDetail />} />
+      <Route path="/calendar" element={<Calendar />} />
+      <Route path="/my-registrations" element={<MyRegistrations />} />
     </Routes>
   );
 }

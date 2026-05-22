@@ -1,0 +1,316 @@
+/* ======================== BASE ======================== */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+/* ======================== LAYOUT COM SIDEBAR ======================== */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ======================== SIDEBAR ======================== */
+.sidebar {
+  width: 220px;
+  background: #1e3a8a;
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px 0;
+  flex-shrink: 0;
+}
+.sidebar h2 {
+  font-size: 14px;
+  text-align: center;
+  padding: 0 15px;
+  margin-bottom: 20px;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar ul li {
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.sidebar ul li.active,
+.sidebar ul li:hover {
+  background: #3749a3;
+}
+
+/* ======================== CONTENT ======================== */
+.content {
+  flex: 1;
+  padding: 40px;
+}
+.content h2 {
+  margin-top: 0;
+}
+
+/* ======================== MODAL OVERLAY ======================== */
+.modal-overlay {
+  display: flex;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.modal-box h3 { margin-top: 0; }
+
+/* ======================== TABELAS ======================== */
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.tabela th, .tabela td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 14px;
+}
+.tabela th {
+  background: #f8f9fa;
+  font-weight: bold;
+}
+.tabela tr:hover {
+  background: #f1f5f9;
+  cursor: pointer;
+}
+
+/* ======================== BOTÕES ======================== */
+.btn-primary {
+  background: #1e3a8a;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.btn-primary:hover { background: #3749a3; }
+
+.btn-success {
+  background: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-success:hover { background: #218838; }
+
+.btn-danger {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-danger:hover { background: #c82333; }
+
+.btn-secondary {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-secondary:hover { background: #0069d9; }
+
+/* ======================== FORMULÁRIOS ======================== */
+.form-group label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.form-group textarea { resize: vertical; min-height: 70px; }
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  gap: 10px;
+}
+.mensagem { margin-top: 10px; font-weight: bold; font-size: 14px; }
+.mensagem.erro { color: red; }
+.mensagem.sucesso { color: green; }
+
+/* ======================== LOGIN ======================== */
+.auth-container {
+  width: 350px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #ccc;
+  text-align: center;
+}
+.auth-container h2 { font-size: 15px; margin-bottom: 20px; }
+.auth-tabs { display: flex; margin-bottom: 15px; }
+.auth-tab {
+  flex: 1;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  background: #eee;
+  font-size: 14px;
+}
+.auth-tab.active { background: #007bff; color: #fff; }
+.auth-icon { margin: 15px 0; }
+.auth-form { text-align: left; }
+.auth-form label { display: block; margin-top: 10px; font-size: 14px; }
+.auth-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.auth-form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.auth-form button:hover { background: #0056b3; }
+.auth-link { display: block; margin-top: 10px; font-size: 12px; color: #007bff; text-decoration: none; }
+.auth-modal-overlay {
+  display: flex;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.auth-modal-box {
+  background: #fff;
+  width: 300px;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 0 10px #333;
+}
+.checkmark { font-size: 40px; color: green; display: block; margin-bottom: 10px; }
+.auth-modal-box button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ======================== CADASTRO DE AÇÕES ======================== */
+.acoes-header { display: flex; gap: 10px; margin-bottom: 20px; }
+
+/* ======================== CALENDÁRIO ======================== */
+.calendario-container {
+  width: 90%;
+  margin: 20px auto;
+  text-align: center;
+}
+.calendario-container h2 { margin-bottom: 10px; }
+.view-buttons { margin-bottom: 20px; display: flex; gap: 8px; justify-content: center; }
+.semana-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.calendario-grid {
+  display: grid;
+  gap: 4px;
+}
+.dia-cell {
+  background: #fff;
+  border: 1px solid #ccc;
+  min-height: 80px;
+  padding: 5px;
+  text-align: left;
+  font-size: 12px;
+  border-radius: 3px;
+}
+.acao-tag {
+  display: block;
+  margin-top: 4px;
+  padding: 3px 5px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 11px;
+  cursor: pointer;
+}
+.acao-tag.alta { background: red; }
+.acao-tag.media { background: orange; }
+.acao-tag.baixa { background: green; }
+
+/* ======================== INSCRIÇÃO VOLUNTÁRIO ======================== */
+.inscricao-form {
+  max-width: 500px;
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+.inscricao-form label { display: block; margin-top: 12px; font-weight: bold; }
+.inscricao-form input,
+.inscricao-form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.consent { margin-top: 15px; display: flex; align-items: center; gap: 8px; }
+.modal-tabs { display: flex; border-bottom: 1px solid #ccc; margin-bottom: 10px; }
+.modal-tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #f9fafb;
+  cursor: pointer;
+  font-size: 14px;
+}
+.modal-tabs button.active {
+  background: #fff;
+  border-bottom: 2px solid #1e3a8a;
+  font-weight: bold;
+}
+.modal-wide { width: 600px; }
+#leafletMap { width: 100%; height: 280px; border-radius: 6px; margin-top: 8px; }
