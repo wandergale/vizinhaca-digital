@@ -564,8 +564,8 @@ npm run dev
 - Protege rotas privadas (ex.: cadastro de ações, relatórios)
 
 
-
-### 11. Relatórios das ações realizadas
+---
+## User Story 11. Relatórios das ações realizadas
 **Como líder da ação comunitária, quero gerar relatórios das ações realizadas, para avaliar resultados e planejar futuras atividades.**
 
 - Criar módulo de relatórios com estatísticas:
@@ -575,7 +575,7 @@ npm run dev
 
 ---
 
-### 12. Acompanhamento de inscrições
+## User Story 12. Acompanhamento de inscrições
 **Como líder da ação comunitária, quero acompanhar inscrições dos voluntários, para saber quem participará de cada ação.**
 
 - Implementar painel que liste voluntários inscritos em cada ação.
@@ -584,7 +584,7 @@ npm run dev
 
 ---
 
-### 13. Recuperação de senha
+## User Story 13. Recuperação de senha
 **Como voluntário, quero recuperar minha senha, para acessar o sistema caso eu esqueça minhas credenciais.**
 
 - Implementar fluxo de recuperação de senha via e-mail.
@@ -592,7 +592,7 @@ npm run dev
 
 ---
 
-### 14. Atualização de senha
+## User Story 14. Atualização de senha
 **Como voluntário, quero atualizar minha senha, para manter minha conta segura.**
 
 - Criar opção de alteração de senha no perfil.
@@ -600,7 +600,7 @@ npm run dev
 
 ---
 
-### 15. Limite de vagas
+## User Story 15. Limite de vagas
 **Como líder comunitário, quero definir limite de vagas em cada ação, para controlar o número de participantes.**
 
 - Adicionar campo de limite de vagas no cadastro de ações.
@@ -609,7 +609,7 @@ npm run dev
 
 ---
 
-### 16. Categorias de ações
+## User Story 16. Categorias de ações
 **Como líder da ação comunitária, quero definir categorias para as ações (ex.: saúde, educação, meio ambiente), para organizar melhor os eventos.**
 
 - Adicionar campo de categoria no cadastro de ações.
@@ -618,7 +618,7 @@ npm run dev
 ---
 
 ## Resumo
-Essas histórias de usuário complementam o fluxo já existente, garantindo que o sistema **Vizinhaça Digital** ofereça:
+Essas histórias de usuário complementam o fluxo, garantindo que o sistema **Vizinhaça Digital** ofereça:
 - **Transparência** (relatórios e painel de inscrições).  
 - **Segurança** (recuperação e atualização de senha).  
 - **Organização** (limite de vagas e categorias).  
