@@ -35,6 +35,10 @@
             <th>Data</th>
             <th>Local</th>
             <th>Prioridade</th>
+            <th>Categoria</th>
+            <th>Limite de Vagas</th>
+            <th>Inscritos</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody id="listaAcoes">
@@ -44,6 +48,10 @@
             <td>01/01/2026</td>
             <td>Área Verde</td>
             <td>Média</td>
+            <td>Educação</td>
+            <td>25</td>
+            <td>10</td>
+            <td>Vagas disponíveis</td>
           </tr>
         </tbody>
       </table>
@@ -73,6 +81,27 @@
           <option value="Média">Média</option>
           <option value="Baixa">Baixa</option>
         </select>
+
+        <label>Categoria*</label>
+        <select id="categoria">
+          <option value="">Selecione</option>
+          <option value="Educação">Educação</option>
+          <option value="Saúde">Saúde</option>
+          <option value="Meio Ambiente">Meio Ambiente</option>
+          <option value="Cultura">Cultura</option>
+          <option value="Esporte">Esporte</option>
+        </select>
+
+        <label>Limite de Vagas*</label>
+        <input type="number" id="limiteVagas" min="1" value="25">
+
+        <div class="vagas-info">
+          <span id="contadorVagas">0 / 25 inscritos</span>
+          <div class="barra-progresso">
+            <div id="progressoVagas"></div>
+          </div>
+          <p id="mensagemVagas"></p>
+        </div>
 
         <div class="form-buttons">
           <button type="submit" class="btn-salvar">Salvar ação</button>
