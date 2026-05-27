@@ -47,29 +47,47 @@ O sistema **Vizinhaça Digital** promove:
 ## Características Fundamentais
 
 ### 1. Autenticação de usuários
-- Implementação de login seguro com armazenamento de sessão.  
-- Controle de acesso diferenciado por perfis (líderes comunitários e voluntários).  
-
+- Login seguro com armazenamento de sessão.
+- Recuperação e alteração de senha.
+- 
 ### 2. Cadastro de ações comunitárias
-- Formulário completo com campos de título, descrição, data, local e prioridade.  
-- Validação de dados em tempo real para evitar inconsistências.  
-- Associação da ação ao líder responsável, garantindo rastreabilidade.  
+- Formulário com título, descrição, data, local, prioridade e **categoria**.
+- Campo numérico para **limite de vagas**.
+- Validação em tempo real.
+- Associação da ação ao líder responsável.
 
-### 3. Visualização em calendário
-- Interface interativa que permite alternar entre visualizações **mensal, semanal e diária**.  
-- Exibição das ações cadastradas nas datas correspondentes.  
-- Modal de detalhes rápidos com opção de acesso às informações completas.  
+### 3. Gestão de vagas
+- Contador visual de inscritos versus limite.
+- Barra de progresso indicando ocupação.
+- Mensagens dinâmicas: “Vagas disponíveis”, “Limite atingido”, “Vagas esgotadas”.
 
-### 4. Inscrição de voluntários
-- Processo simplificado de inscrição com poucos campos obrigatórios.  
-- Feedback imediato de sucesso ou erro, assegurando clareza ao usuário.  
-- Registro automático da inscrição vinculado ao voluntário e à ação selecionada.  
+### 4. Visualização em calendário
+- Alternância entre visão mensal, semanal e diária.
+- Exibição das ações nas datas corretas.
+- Modal de detalhes rápidos com opção de inscrição.
 
-### 5. Relatórios gerenciais
-- Estatísticas sobre número de inscritos por ação.  
-- Indicadores de ações realizadas e engajamento comunitário.  
-- Geração de relatórios consolidados para líderes comunitários, com gráficos e tabelas.
+### 5. Inscrição de voluntários
+- Formulário simples (nome e e-mail).
+- Feedback imediato de sucesso ou erro.
+- Registro automático vinculado ao voluntário e à ação.
+- Integração com o módulo de vagas.
 
+### 6. Painel de inscrições
+- Lista consolidada de voluntários inscritos por ação.
+- Filtros por ação, data e status.
+- Exportação de dados para relatórios.
+
+### 7. Edição e cancelamento de inscrição
+- Voluntário pode editar dados ou cancelar inscrição.
+- Confirmação antes de excluir.
+- Alterações refletidas no histórico.
+
+### 8. Relatórios gerenciais
+- Estatísticas sobre número de inscritos por ação.
+- Indicadores de engajamento comunitário.
+- Relatórios consolidados com gráficos e tabelas.
+- Transparência e rastreabilidade das iniciativas.
+  
 ---
 
 ## Funcionalidade Inicial Básica
@@ -94,122 +112,237 @@ SISTEMA/
 │   ├── cadastro-acoes.html
 │   ├── calendario.html
 │   ├── edicao_cancelar.html
-│   └── inscricao-voluntario.html
+│   ├── inscricao-voluntario.html
+│   ├── painel-inscricoes.html
+│   └── relatorios-acoes.html
 ├── css/
 │   ├── autenticacao.css
 │   ├── cadastro-acoes.css
 │   ├── calendario.css
 │   ├── edicao-cancelar.css
-│   └── inscricao-voluntario.css
+│   ├── inscricao-voluntario.css
+│   ├── painel-inscricoes.css
+│   └── relatorios-acoes.css
 └── js/
-│   ├──  autenticacao.js
-│   ├── cadastro-acoes.js
-│   ├── calendario.js
-│   ├──  edicao-cancelar.js
-│   └── inscricao-voluntario.js
+    ├── autenticacao.js
+    ├── cadastro-acoes.js
+    ├── calendario.js
+    ├── edicao-cancelar.js
+    ├── inscricao-voluntario.js
+    ├── painel-inscricoes.js
+    └── relatorios-acoes.js
+
 ```
 ## Estrutura Inicial (versão sem backend)
 
-- Esta primeira versão tem como objetivo validar o fluxo básico de interação entre **login → cadastro de ações → calendário → inscrição de voluntários → edição/cancelamento de inscrição**.
-- Todo o funcionamento ocorre diretamente no navegador, utilizando **HTML, CSS e JavaScript**, sem necessidade de banco de dados.
----
-**Autenticação**
-- autenticacao.html → Página de login e criação de conta (formulário com usuário/senha).
-- autenticacao.css → Estilos da tela de login (layout, cores, mensagens de erro/sucesso).
-- autenticacao.js → Lógica de autenticação: valida credenciais, mostra feedback e salva sessão no localStorage.
-**Função principal:** Garantir que apenas usuários autenticados possam acessar funcionalidades restritas, como cadastro de ações.
----
-**Cadastro de Ações**
-- cadastro-acoes.html → Formulário para cadastrar ações comunitárias (título, descrição, data, local, prioridade).
-- cadastro-acoes.css → Estilos da tela de cadastro (formulário, botões, mensagens).
-- cadastro-acoes.js → Validação dos campos, exibição de mensagens de erro em vermelho ou modal de sucesso. Também verifica se o usuário está logado antes de permitir o acesso.
-- **Função principal:** Permitir que líderes comunitários registrem ações de forma estruturada e rastreável.
----
-**Calendário**
-- calendario.html → Estrutura do calendário, com botões para alternar visualização (mês, semana, dia) e modal de detalhes rápidos.
-- calendario.css → Estilos visuais do calendário (cores por prioridade, layout da grade, modal).
-- calendario.js → Lógica de renderização das ações no calendário, alternância de visualização e abertura de detalhes. Lê as ações cadastradas e posiciona nos dias corretos.
-- **Função principal:** Oferecer uma visão clara e organizada das ações comunitárias cadastradas.
- --- 
-**Inscrição de Voluntários**
-- inscricao-voluntario.html → Página de inscrição, com formulário simples (nome e e-mail).
-- inscricao-voluntario.css → Estilos da tela de inscrição (layout limpo, mensagens de sucesso/erro).
-- inscricao-voluntario.js → Lógica da inscrição: valida dados, registra no localStorage e exibe feedback imediato.
-- **Função principal:** Simplificar o processo de participação dos voluntários, garantindo clareza e confiabilidade.
----
-**Confirmação de Inscrição**
-- Depois que o voluntário envia o formulário em `inscricao-voluntario.html`, o sistema confere os dados informados e registra a participação no `localStorage`.
-- O usuário recebe um **retorno imediato**:
-  - Mensagem de sucesso → indica que a inscrição foi concluída com sucesso.
-  - Mensagem de alerta → informa falhas detectadas (ex.: campos obrigatórios não preenchidos).
-- Esse processo garante transparência e segurança na adesão às ações.  
-- **Função principal:** Assegurar que o participante tenha certeza instantânea sobre o resultado da inscrição, reforçando a confiança e estimulando o envolvimento comunitário.
+Esta primeira versão valida o fluxo básico de interação entre:
+
+**Login → Cadastro de Ações → Calendário → Inscrição de Voluntários → Edição/Cancelamento → Painel de Inscrições → Relatórios**
+
+Todo o funcionamento ocorre diretamente no navegador, utilizando **HTML, CSS e JavaScript**, sem necessidade de banco de dados.
 
 ---
-**Edição/Cancelamento de Inscrição**
-- edicao_cancelar.html → Página para o voluntário editar ou cancelar sua inscrição em uma ação comunitária.
-- edicao-cancelar.css → Estilos da tela de edição/cancelamento (formulário de edição, botões de confirmação).
-- edicao-cancelar.js → Lógica para atualizar ou excluir inscrições, com confirmação antes de aplicar mudanças. Alterações são refletidas no histórico de inscrições armazenado no localStorage.
-- **Função principal:** Garantir autonomia ao voluntário para gerenciar sua participação em ações comunitárias.
+
+### Autenticação
+- `autenticacao.html` → Página de login e criação de conta.
+- `autenticacao.css` → Estilos da tela de login.
+- `autenticacao.js` → Lógica de autenticação: valida credenciais, mostra feedback e salva sessão no `localStorage`.
+
+**Função principal:** Garantir que apenas usuários autenticados possam acessar funcionalidades restritas.
 
 ---
+
+### Cadastro de Ações
+- `cadastro-acoes.html` → Formulário para cadastrar ações (título, descrição, data, local, prioridade, categoria, limite de vagas).
+- `cadastro-acoes.css` → Estilos da tela de cadastro.
+- `cadastro-acoes.js` → Validação dos campos, mensagens de erro/sucesso, controle de vagas.
+
+**Função principal:** Permitir que líderes registrem ações de forma estruturada e rastreável.
+
+---
+
+### Calendário
+- `calendario.html` → Estrutura do calendário (mês, semana, dia).
+- `calendario.css` → Estilos visuais do calendário.
+- `calendario.js` → Renderização das ações, alternância de visualização, modal de detalhes.
+
+**Função principal:** Oferecer visão clara e organizada das ações comunitárias.
+
+---
+
+### Inscrição de Voluntários
+- `inscricao-voluntario.html` → Página de inscrição (nome e e-mail).
+- `inscricao-voluntario.css` → Estilos da tela de inscrição.
+- `inscricao-voluntario.js` → Lógica da inscrição: valida dados, registra no `localStorage`, feedback imediato.
+
+**Função principal:** Simplificar o processo de participação dos voluntários.
+
+---
+
+### Confirmação de Inscrição
+- Feedback imediato após inscrição:
+  - **Sucesso** → inscrição concluída.
+  - **Erro** → campos obrigatórios não preenchidos.
+
+**Função principal:** Garantir clareza e confiança no processo.
+
+---
+
+### Edição/Cancelamento de Inscrição
+- `edicao_cancelar.html` → Página para editar ou cancelar inscrição.
+- `edicao-cancelar.css` → Estilos da tela de edição/cancelamento.
+- `edicao-cancelar.js` → Lógica para atualizar ou excluir inscrições, com confirmação.
+
+**Função principal:** Garantir autonomia ao voluntário.
+
+---
+
+### Painel de Inscrições
+- `painel-inscricoes.html` → Lista consolidada de voluntários inscritos por ação.
+- `painel-inscricoes.css` → Estilos do painel.
+- `painel-inscricoes.js` → Lógica para exibir inscritos, aplicar filtros e exportar dados.
+
+**Função principal:** Permitir que líderes acompanhem e gerenciem inscrições.
+
+---
+
+### Relatórios de Ações
+- `relatorios-acoes.html` → Página de relatórios gerenciais.
+- `relatorios-acoes.css` → Estilos dos relatórios (gráficos, tabelas).
+- `relatorios-acoes.js` → Lógica para gerar estatísticas e indicadores.
+
+**Função principal:** Fornecer transparência e métricas de engajamento comunitário.
+
+---
+
 ## Procedimento para rodar o código
-- Abra o explorador de arquivos (Windows).
-- Clique duas vezes em `autenticacao.html` para iniciar o sistema.
-- Faça login ou crie uma conta.
-- Após login, acesse `cadastro-acoes.html` para cadastrar novas ações comunitárias.
-- Visualize as ações no `calendario.html`.
-- Clique em uma ação → o navegador exibirá os detalhes e a opção “Quero me inscrever”.
-- O navegador abrirá `inscricao-voluntario.html`.
-- Preencha os campos de nome e e-mail.
-- O sistema exibirá uma mensagem de sucesso ou erro.
-- Caso queira alterar ou cancelar sua inscrição, abra `edicao_cancelar.html`.
+1. Abra o explorador de arquivos (Windows).
+2. Clique duas vezes em `autenticacao.html` para iniciar o sistema.
+3. Faça login ou crie uma conta.
+4. Após login, acesse `cadastro-acoes.html` para cadastrar novas ações.
+5. Visualize as ações no `calendario.html`.
+6. Clique em uma ação → opção **“Quero me inscrever”**.
+7. O navegador abrirá `inscricao-voluntario.html`.
+8. Preencha os campos de nome e e-mail.
+9. O sistema exibirá mensagem de sucesso ou erro.
+10. Para editar ou cancelar inscrição, abra `edicao_cancelar.html`.
+11. Para acompanhar inscritos, abra `painel-inscricoes.html`.
+12. Para relatórios gerenciais, abra `relatorios-acoes.html`.
+---
+
+# Fluxo do Usuário — Vizinhaça Digital
+
+Consiste em descrver o fluxo completo de interação do usuário dentro do sistema **Vizinhaça Digital**, desde o login até relatórios gerenciais.
 
 ---
 
-## Fluxo do Usuário
-**Login (autenticacao.html)**  
-- Usuário acessa o sistema.  
-- Faz login ou cria conta.  
-- Se válido, sessão é salva no `localStorage`.  
+## 1. Login e Autenticação
+- Usuário acessa `autenticacao.html`.
+- Faz login ou cria conta.
+- Se válido, sessão é salva no `localStorage` (versão inicial) ou JWT (versão final).
+- Apenas usuários autenticados podem acessar módulos restritos.
+
+**Função principal:** Garantir acesso seguro e diferenciado por perfil (líder comunitário ou voluntário).
 
 ---
 
-**Cadastro de Ações (cadastro-acoes.html)**  
-- Apenas acessível se o usuário estiver logado.  
-- Formulário com título, descrição, data, local e prioridade.  
-- Validação feita pelo JS → mensagens de erro em vermelho ou modal de sucesso.  
+## 2. Cadastro de Ações
+- Líder comunitário acessa `cadastro-acoes.html`.
+- Preenche formulário com:
+  - Título
+  - Descrição
+  - Data
+  - Local
+  - Prioridade
+  - Categoria
+  - Limite de vagas
+- Sistema valida os campos e exibe mensagens de erro/sucesso.
+- A ação é registrada e aparece na tabela e no calendário.
+
+**Função principal:** Permitir registro estruturado e rastreável das ações.
 
 ---
 
-**Calendário (calendario.html)**  
-- Exibe os dias do mês atual em grade.  
-- Mostra as ações cadastradas nas datas corretas.  
-- Permite alternar entre visualização mensal, semanal e diária.  
-- Ao clicar em uma ação, abre modal com detalhes rápidos e opção de inscrição.  
+## 3. Gestão de Vagas
+- Cada ação possui um **limite de vagas** definido.
+- Contador mostra **inscritos / limite**.
+- Barra de progresso indica ocupação.
+- Mensagens dinâmicas:
+  - Verde → “Vagas disponíveis”
+  - Laranja → “Limite atingido”
+  - Vermelho → “Vagas esgotadas”
+
+**Função principal:** Controlar ocupação de vagas em tempo real.
 
 ---
 
-**Inscrição de Voluntários (inscricao-voluntario.html)**  
-- Usuário preenche nome e e-mail.  
-- Sistema valida os dados e confirma inscrição.  
-- Feedback imediato: mensagem de sucesso ou erro.  
-- Inscrição vinculada à ação escolhida e registrada no `localStorage`.  
+## 4. Visualização em Calendário
+- Usuário acessa `calendario.html`.
+- Alterna entre visualização **mensal, semanal e diária**.
+- Ações cadastradas aparecem nas datas corretas.
+- Ao clicar em uma ação, abre modal com detalhes e opção de inscrição.
+
+**Função principal:** Oferecer visão clara e organizada das ações comunitárias.
 
 ---
 
-**Edição/Cancelamento de Inscrição (edicao_cancelar.html)**  
-- Voluntário acessa suas inscrições.  
-- Pode editar dados (nome, e-mail) ou cancelar inscrição.  
-- Cancelamento exige confirmação antes de excluir.  
-- Alterações são refletidas imediatamente no sistema.
+## 5. Inscrição de Voluntários
+- Voluntário acessa `inscricao-voluntario.html`.
+- Preenche formulário simples (nome e e-mail).
+- Sistema valida dados e registra inscrição no `localStorage`.
+- Feedback imediato: sucesso ou erro.
+- Contador de vagas é atualizado dinamicamente.
 
-**Confirmação de Inscrição (inscricao-voluntario.html)**
-- Após o voluntário preencher o formulário em `inscricao-voluntario.html`, o sistema valida os dados e registra a inscrição no `localStorage`.
-- O usuário recebe **feedback imediato**:
-  - Mensagem de sucesso: confirma que a inscrição foi realizada.
-  - Mensagem de erro: informa inconsistências (ex.: campos obrigatórios não preenchidos).
-- Esse retorno garante clareza e confiança no processo de participação.
+**Função principal:** Simplificar participação dos voluntários.
+
+---
+
+## 6. Confirmação de Inscrição
+- Após inscrição, voluntário recebe retorno imediato:
+  - **Sucesso** → inscrição concluída.
+  - **Erro** → campos obrigatórios não preenchidos.
+
+**Função principal:** Garantir clareza e confiança no processo.
+
+---
+
+## 7. Edição e Cancelamento de Inscrição
+- Voluntário acessa `edicao_cancelar.html`.
+- Pode editar dados ou cancelar inscrição.
+- Sistema solicita confirmação antes de excluir.
+- Alterações refletidas no histórico de inscrições.
+
+**Função principal:** Garantir autonomia ao voluntário.
+
+---
+
+## 8. Painel de Inscrições
+- Líder acessa `painel-inscricoes.html`.
+- Visualiza lista consolidada de voluntários inscritos por ação.
+- Aplica filtros por ação, data e status.
+- Exporta dados para relatórios.
+
+**Função principal:** Permitir acompanhamento e gestão das inscrições.
+
+---
+
+## 9. Relatórios de Ações
+- Líder acessa `relatorios-acoes.html`.
+- Sistema gera estatísticas:
+  - Número de inscritos
+  - Ocupação de vagas
+  - Engajamento comunitário
+- Exibe gráficos e tabelas consolidadas.
+
+**Função principal:** Fornecer transparência e métricas de engajamento.
+
+---
+
+## Resumo do Fluxo
+
+**Login → Cadastro de Ações (com categorias e limite de vagas) → Gestão de Vagas → Calendário → Inscrição de Voluntários → Confirmação → Edição/Cancelamento → Painel de Inscrições → Relatórios**
+
+---
   
 ---
 ---
@@ -249,66 +382,76 @@ vizinhaca-digital/
 ---
 ## Funcionalidade Específica
 
-**Backend (Node.js + Express + Prisma + PostgreSQL)**
-- src/routes/ → Define as rotas da API (ex.: /users, /actions, /registrations).
-- src/controllers/ → Contém a lógica de cada rota, ou seja, o que acontece quando um endpoint é chamado. Exemplo: ao chamar POST /registrations, o controller valida os dados e cria a inscrição no banco.
-- src/middlewares/ → Funções que interceptam requisições antes de chegar ao controller (ex.: autenticação JWT, verificação de permissões).
-- src/app.js → Configuração principal do Express (middlewares globais, uso de rotas, etc.).
-- prisma/schema.prisma → Define os modelos do banco de dados (User → pessoas cadastradas, Action → ações comunitárias, Registration → inscrições dos voluntários).
-- server.js → Ponto de entrada do servidor, inicializa o Express e conecta ao PostgreSQL.
-- .env.example → Exemplo de variáveis de ambiente (porta, credenciais do banco, secret JWT).
+### Backend (Node.js + Express + Prisma + PostgreSQL)
+- **src/routes/** → Define rotas da API (`/users`, `/actions`, `/registrations`, `/reports`).  
+- **src/controllers/** → Lógica dos endpoints (ex.: `POST /registrations` cria inscrição).  
+- **src/middlewares/** → Autenticação JWT e verificação de permissões.  
+- **src/app.js** → Configuração principal do Express.  
+- **prisma/schema.prisma** → Modelos do banco (`User`, `Action`, `Registration`).  
+- **server.js** → Inicializa servidor e conecta ao PostgreSQL.  
+- **.env.example** → Variáveis de ambiente (porta, credenciais, secret JWT).  
+
+### Frontend (React + Vite)
+- **src/pages/** → Páginas principais:  
+  - `Login.jsx` → Autenticação de usuários.  
+  - `Home.jsx` → Lista de ações comunitárias.  
+  - `Actions.jsx` → Gerenciamento de ações (líderes).  
+  - `ActionDetail.jsx` → Detalhes da ação e inscrição.  
+  - `Reports.jsx` → Relatórios gerenciais.  
+- **src/components/** → Componentes reutilizáveis (inputs, botões, barra de progresso, alertas).  
+- **src/services/api.js** → Configuração do Axios para consumir API.  
+- **App.jsx** → Define rotas principais.  
+- **main.jsx** → Ponto de entrada do React.  
 
 ---
-**Frontend (React + Vite)**
-- src/pages/ → Páginas principais da aplicação: (Login.jsx: Página de autenticação de usuários (login e registro), Home.jsx: Página inicial (lista de ações comunitárias disponíveis), Actions.jsx: Página de gerenciamento de ações (voltada para líderes comunitários), ActionDetail.jsx: Página de detalhes de uma ação específica (informações completas e opção de inscrição).
-- src/components/ → Componentes reutilizáveis (botões, formulários, cabeçalhos, modais).
-- src/services/api.js → Configuração do Axios para consumir a API do backend (api.get("/actions") para listar ações).
-- App.jsx → Define as rotas e a estrutura principal da aplicação (/login, /actions/:id).
-- main.jsx → Ponto de entrada do React, renderiza o App.
-- .env.example → Exemplo de variáveis de ambiente (URL da API, etc.).
-
 
 ## Funcionamento para rodar o código
 
 ### Pré-requisitos
-
-- Node.js 18+
-- PostgreSQL rodando localmente
+- Node.js 18+  
+- PostgreSQL rodando localmente  
 
 ### Backend
-
 ```bash
 cd backend
 npm install
 cp .env.example .env
-# Editar .env com as credenciais do PostgreSQL
+# Editar .env com credenciais do PostgreSQL
 npx prisma migrate dev --name init
 npm run dev
 ```
-
 ### Frontend
-
 ```bash
 cd frontend
 npm install
 cp .env.example .env
 npm run dev
-```
 
+```
 ## Modelos do banco
 
 | Modelo         | Campos principais                                           |
 |----------------|-------------------------------------------------------------|
 | `User`         | id, name, email, password, role (LEADER/VOLUNTEER)          |
 | `Action`       | id, title, description, date, location, priority, createdBy |
-| `Registration` | id, userId, actionId                                        |
-
+| `Registration` | id, userId, actionId, status                                       |
+```
+```
 ## Endpoints disponíveis
+- GET /health — health check
+- POST /login — autenticação de usuários
+- POST /register — criação de conta
+- POST /actions — cadastro de ações
+- GET /actions — listar ações
+- GET /actions/:id — detalhes de uma ação
+- POST /registrations — inscrição em ação
+- PUT /registrations/:id — edição de inscrição
+- DELETE /registrations/:id — cancelamento de inscrição
+- GET /registrations?actionId=:id — lista de inscritos por ação
+- GET /reports/actions — relatórios gerenciais
 
-- `GET /health` — health check
-
-> Demais rotas serão implementadas nas próximas etapas.
-
+```
+```
 
 # Itens do Backlog e Estrutura Final
 
@@ -419,3 +562,63 @@ npm run dev
 - Página `src/pages/Login.jsx`
 - Armazena token JWT no `localStorage`
 - Protege rotas privadas (ex.: cadastro de ações, relatórios)
+
+
+
+### 11. Relatórios das ações realizadas
+**Como líder da ação comunitária, quero gerar relatórios das ações realizadas, para avaliar resultados e planejar futuras atividades.**
+
+- Criar módulo de relatórios com estatísticas:
+  - Número de inscritos
+  - Presença
+  - Prioridade das ações
+
+---
+
+### 12. Acompanhamento de inscrições
+**Como líder da ação comunitária, quero acompanhar inscrições dos voluntários, para saber quem participará de cada ação.**
+
+- Implementar painel que liste voluntários inscritos em cada ação.
+- Permitir filtros por ação, data e status.
+- Exportar dados para relatórios.
+
+---
+
+### 13. Recuperação de senha
+**Como voluntário, quero recuperar minha senha, para acessar o sistema caso eu esqueça minhas credenciais.**
+
+- Implementar fluxo de recuperação de senha via e-mail.
+- Enviar link seguro para redefinição.
+
+---
+
+### 14. Atualização de senha
+**Como voluntário, quero atualizar minha senha, para manter minha conta segura.**
+
+- Criar opção de alteração de senha no perfil.
+- Validar senha antiga antes de permitir alteração.
+
+---
+
+### 15. Limite de vagas
+**Como líder comunitário, quero definir limite de vagas em cada ação, para controlar o número de participantes.**
+
+- Adicionar campo de limite de vagas no cadastro de ações.
+- Exibir contador de inscritos versus limite.
+- Mostrar mensagens dinâmicas (disponível, limite atingido, esgotado).
+
+---
+
+### 16. Categorias de ações
+**Como líder da ação comunitária, quero definir categorias para as ações (ex.: saúde, educação, meio ambiente), para organizar melhor os eventos.**
+
+- Adicionar campo de categoria no cadastro de ações.
+- Permitir filtragem e organização por categoria.
+
+---
+
+## Resumo
+Essas histórias de usuário complementam o fluxo já existente, garantindo que o sistema **Vizinhaça Digital** ofereça:
+- **Transparência** (relatórios e painel de inscrições).  
+- **Segurança** (recuperação e atualização de senha).  
+- **Organização** (limite de vagas e categorias).  
