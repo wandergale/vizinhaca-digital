@@ -1,0 +1,169 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fa;
+  display: flex;
+}
+
+.sidebar {
+  width: 260px;
+  background: #1e3a8a;
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+}
+.sidebar h2 {
+  margin-top: 0;
+  font-size: 16px;
+  color: #fff;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar li {
+  margin: 15px 0;
+}
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
+.conteudo {
+  flex: 1;
+  padding: 30px;
+}
+h1 {
+  color: #1a5276;
+}
+
+.filtros {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.filtros label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.filtros select,
+.filtros input,
+.filtros button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.filtros button {
+  cursor: pointer;
+  font-weight: bold;
+}
+#gerar {
+  background: #28a745; 
+  color: #fff;
+}
+#gerar:hover {
+  background: #218838;
+}
+#exportar-pdf {
+  background: #1a5276; 
+  color: #fff;
+}
+#exportar-pdf:hover {
+  background: #154360;
+}
+
+.resumo {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.resumo .box {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 6px;
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+}
+
+.grafico {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+#graficoPrioridades {
+  max-width: 500px;
+  max-height: 300px;
+  margin: 0 auto;
+  display: block;
+}
+
+.relatorios table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.relatorios th {
+  background: #1a5276;
+  color: #fff;
+  padding: 10px;
+}
+.relatorios td {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+.relatorios tr:hover {
+  background: #f2f2f2;
+}
+.relatorios button {
+  background: #1a5276;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.relatorios button:hover {
+  background: #154360;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+.modal-box {
+  background: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 6px;
+  width: 400px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+#modal-fechar {
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+  color: #1a5276;
+}
+#modal-conteudo h2 {
+  margin-top: 0;
+  color: #1a5276;
+}
+#modal-conteudo p {
+  margin: 8px 0;
+}
