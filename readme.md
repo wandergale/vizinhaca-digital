@@ -49,7 +49,7 @@ O sistema **Vizinhaça Digital** promove:
 ### 1. Autenticação de usuários
 - Login seguro com armazenamento de sessão.
 - Recuperação e alteração de senha.
-- 
+
 ### 2. Cadastro de ações comunitárias
 - Formulário com título, descrição, data, local, prioridade e **categoria**.
 - Campo numérico para **limite de vagas**.
