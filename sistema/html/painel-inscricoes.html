@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Acompanhamento de Inscrições</title>
+  <link rel="stylesheet" href="../css/painel-inscricoes.css">
+</head>
+<body>
+  <nav class="sidebar">
+    <h2>Sistema de Cadastro e Agendamento de Ações Comunitárias</h2>
+    <ul>
+      <li><a href="#">Início</a></li>
+      <li><a href="#">Administração</a></li>
+      <li><a href="#">Períodos</a></li>
+      <li><a href="#">Agendamentos</a></li>
+      <li><a href="#">Ações</a></li>
+      <li><a href="#">Relatórios</a></li>
+      <li><a href="#">Sair</a></li>
+    </ul>
+  </nav>
+
+  <main class="conteudo">
+    <h1>Acompanhamento de Inscrições</h1>
+
+    <section class="resumo">
+      <div class="box">Total de Inscrições: <strong id="total-inscricoes">254</strong></div>
+      <div class="box">Inscrições Pendentes: <strong id="pendentes">38</strong></div>
+      <div class="box">Ações com Vagas: <strong id="acoes-vagas">15</strong></div>
+      <div class="box">Voluntários Ativos: <strong id="voluntarios-ativos">102</strong></div>
+    </section>
+
+    <section class="filtros">
+      <div>
+        <label>Selecionar Ação:</label>
+        <select id="acao">
+          <option value="">Todas</option>
+          <option value="Revitalização Praça">Revitalização Praça</option>
+          <option value="Pintura Escola Norte">Pintura Escola Norte</option>
+          <option value="Limpeza Parque Águas">Limpeza Parque Águas</option>
+        </select>
+      </div>
+      <div>
+        <label>Prioridade:</label>
+        <select id="prioridade">
+          <option value="">Todas</option>
+          <option value="Alta">Alta</option>
+          <option value="Média">Média</option>
+          <option value="Baixa">Baixa</option>
+        </select>
+      </div>
+      <button id="filtrar">Filtrar</button>
+      <button id="ver-calendario">Ver no Calendário</button>
+      <button id="gerar-relatorio">Gerar Relatório</button>
+    </section>
+
+    <section class="inscricoes">
+      <table>
+        <thead>
+          <tr>
+            <th>Voluntário</th>
+            <th>E-mail</th>
+            <th>Ação Comunitária</th>
+            <th>Data</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tabela-inscricoes">
+          <tr>
+            <td>José Silva</td>
+            <td>josesilva@gmail.com</td>
+            <td>Revitalização Praça</td>
+            <td>11/05/2026</td>
+            <td>Média</td>
+            <td>Pendente</td>
+            <td>
+              <button class="aprovar">✔</button>
+              <button class="rejeitar">✖</button>
+              <button class="detalhes">ℹ</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <div id="modal" class="modal">
+    <div class="modal-box">
+      <span id="modal-fechar">&times;</span>
+      <div id="modal-conteudo"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="../js/painel-inscricoes.js"></script>
+</body>
+</html>
