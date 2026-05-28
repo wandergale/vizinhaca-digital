@@ -1,6 +1,3 @@
--- =========================
--- Tabela de Usuários
--- =========================
 CREATE TABLE usuarios (
     id_usuario SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -11,18 +8,12 @@ CREATE TABLE usuarios (
     data_token TIMESTAMP            
 );
 
--- =========================
--- Tabela de Prioridades
--- =========================
 CREATE TABLE prioridades (
     id_prioridade SERIAL PRIMARY KEY,
     nivel VARCHAR(20) CHECK (nivel IN ('alta', 'média', 'baixa')) NOT NULL,
     cor VARCHAR(20) CHECK (cor IN ('vermelho', 'amarelo', 'verde')) NOT NULL
 );
 
--- =========================
--- Tabela de Ações Comunitárias
--- =========================
 CREATE TABLE acao_comunitaria (
     id_acao SERIAL PRIMARY KEY,
     titulo VARCHAR(150) NOT NULL,
@@ -37,9 +28,6 @@ CREATE TABLE acao_comunitaria (
     FOREIGN KEY (id_lider) REFERENCES usuarios(id_usuario)
 );
 
--- =========================
--- Tabela de Inscrições
--- =========================
 CREATE TABLE inscricoes (
     id_inscricao SERIAL PRIMARY KEY,
     id_usuario INT NOT NULL,
@@ -51,9 +39,6 @@ CREATE TABLE inscricoes (
     UNIQUE (id_usuario, id_acao) -- evita inscrições duplicadas
 );
 
--- =========================
--- Tabela de Calendário
--- =========================
 CREATE TABLE calendario (
     id_evento SERIAL PRIMARY KEY,
     id_acao INT NOT NULL,
@@ -62,9 +47,6 @@ CREATE TABLE calendario (
     FOREIGN KEY (id_acao) REFERENCES acao_comunitaria(id_acao)
 );
 
--- =========================
--- Tabela de Relatórios
--- =========================
 CREATE TABLE relatorios (
     id_relatorio SERIAL PRIMARY KEY,
     id_acao INT NOT NULL,
@@ -76,9 +58,6 @@ CREATE TABLE relatorios (
     FOREIGN KEY (id_acao) REFERENCES acao_comunitaria(id_acao)
 );
 
--- =========================
--- Painel de Inscrições (VIEW)
--- =========================
 CREATE VIEW painel_inscricoes AS
 SELECT 
     a.id_acao,
