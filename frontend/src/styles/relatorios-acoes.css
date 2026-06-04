@@ -1,0 +1,301 @@
+/* ── Sidebar ─────────────────────────────── */
+.sidebar {
+  width: 260px;
+  background: var(--sidebar-bg);
+  color: #fff;
+  min-height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.5;
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 12px;
+  flex: 1;
+}
+
+.sidebar li {
+  margin: 2px 0;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition);
+}
+
+.sidebar a:hover {
+  background: var(--sidebar-hover);
+  color: #fff;
+}
+
+/* ── Main content ────────────────────────── */
+.conteudo {
+  flex: 1;
+  padding: 36px 40px;
+  overflow-y: auto;
+}
+
+.conteudo h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+/* ── Filters ─────────────────────────────── */
+.filtros {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  align-items: center;
+  background: var(--card);
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.filtros > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filtros label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.filtros select,
+.filtros input[type="date"] {
+  padding: 7px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--text);
+  background: var(--card);
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.filtros select:focus,
+.filtros input[type="date"]:focus {
+  border-color: var(--primary);
+}
+
+.filtros button {
+  padding: 8px 18px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+#gerar {
+  background: var(--success);
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(22,163,74,0.3);
+}
+
+#gerar:hover { background: var(--success-hover); }
+
+#exportar-pdf {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(37,99,235,0.3);
+}
+
+#exportar-pdf:hover { background: var(--primary-hover); }
+
+/* ── Summary cards ───────────────────────── */
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.resumo .box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.resumo .box strong {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.resumo .box:nth-child(1) strong { color: var(--primary); }
+.resumo .box:nth-child(2) strong { color: var(--success); }
+.resumo .box:nth-child(3) strong { color: var(--info); }
+.resumo .box:nth-child(4) strong { color: var(--warning); }
+.resumo .box:nth-child(5) strong { color: var(--danger); }
+
+/* ── Chart ───────────────────────────────── */
+.grafico {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+
+#graficoPrioridades {
+  max-width: 500px;
+  max-height: 300px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* ── Table ───────────────────────────────── */
+.relatorios table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.relatorios th {
+  background: #1e293b;
+  color: rgba(255,255,255,0.85);
+  padding: 13px 14px;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.relatorios td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--text);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.relatorios tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.relatorios tr:hover {
+  background: #f8fafc;
+}
+
+.relatorios button {
+  background: var(--primary-light);
+  color: var(--primary);
+  border: none;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.relatorios button:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ── Modal ───────────────────────────────── */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.55);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+}
+
+.modal-box {
+  background: var(--card);
+  margin: 8% auto;
+  padding: 28px 32px;
+  border-radius: var(--radius-xl);
+  width: 440px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#modal-fechar {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text-muted);
+  line-height: 1;
+  transition: color var(--transition);
+}
+
+#modal-fechar:hover { color: var(--text); }
+
+#modal-conteudo h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  padding-right: 24px;
+}
+
+#modal-conteudo p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 8px 0;
+  display: flex;
+  gap: 8px;
+}
+
+#modal-conteudo p strong {
+  color: var(--text);
+  min-width: 90px;
+}
