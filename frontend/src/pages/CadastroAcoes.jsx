@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import '../styles/cadastro-acoes.css';
 
 const acaoInicial = [
@@ -17,7 +16,6 @@ const acaoInicial = [
 ];
 
 export default function CadastroAcoes() {
-  const navigate = useNavigate();
   const [acoes, setAcoes] = useState(acaoInicial);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -32,13 +30,6 @@ export default function CadastroAcoes() {
   const [mensagemClasse, setMensagemClasse] = useState('mensagem');
 
   const inscritos = 0;
-
-  useEffect(() => {
-    if (!localStorage.getItem("usuarioLogado")) {
-      alert("Você precisa estar logado para acessar o cadastro de ações.");
-      navigate('/autenticacao');
-    }
-  }, [navigate]);
 
   function calcularStatus(inscritosCount, limite) {
     if (inscritosCount >= limite) return 'Vagas esgotadas';
