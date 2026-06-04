@@ -1,0 +1,324 @@
+/* ── Sidebar ─────────────────────────────── */
+.sidebar {
+  width: 260px;
+  background: var(--sidebar-bg);
+  color: #fff;
+  min-height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 12px;
+  flex: 1;
+}
+
+.sidebar ul li {
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  transition: background var(--transition), color var(--transition);
+  margin-bottom: 2px;
+}
+
+.sidebar ul li:hover {
+  background: var(--sidebar-hover);
+  color: #fff;
+}
+
+.sidebar ul li.active {
+  background: var(--sidebar-active);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── Main ────────────────────────────────── */
+.main {
+  flex: 1;
+  padding: 36px 40px;
+  overflow-y: auto;
+}
+
+.main h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.main form {
+  max-width: 460px;
+  background: var(--card);
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.main label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-top: 14px;
+  margin-bottom: 5px;
+}
+
+.main input,
+.main select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13.5px;
+  color: var(--text);
+  background: var(--card);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.main input:focus,
+.main select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.consent {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.consent input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.consent label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  cursor: pointer;
+}
+
+.confirmar {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 28px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+}
+
+.confirmar:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+/* ── Table (empty state preserved) ──────── */
+table.inscricoes {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+table.inscricoes th {
+  padding: 12px 16px;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #1e293b;
+  color: rgba(255,255,255,0.8);
+  text-align: center;
+}
+
+table.inscricoes td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--text);
+  text-align: center;
+}
+
+table.inscricoes tbody tr:last-child td {
+  border-bottom: none;
+}
+
+table.inscricoes tbody tr:hover {
+  background: #f8fafc;
+}
+
+table.inscricoes td button {
+  padding: 6px 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--transition);
+  margin: 0 3px;
+}
+
+table.inscricoes td button:first-child {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+table.inscricoes td button:first-child:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+table.inscricoes td button:last-child {
+  background: var(--danger-light);
+  color: var(--danger);
+}
+
+table.inscricoes td button:last-child:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+#feedback {
+  margin-top: 16px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--success);
+  padding: 10px 14px;
+  background: var(--success-light);
+  border-radius: var(--radius);
+  display: inline-block;
+}
+
+#feedback:empty { display: none; }
+
+/* ── Modals ──────────────────────────────── */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.55);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+#modalEdicao .modal-content,
+#modalCancelamento .modal-content {
+  background: var(--card);
+  width: 420px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  padding: 28px 32px;
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-content h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-content p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.modal-content button.confirmar {
+  background: var(--primary);
+  box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+}
+
+.modal-content button.confirmar:hover {
+  background: var(--primary-hover);
+}
+
+.modal-content button.cancelar {
+  display: block;
+  margin: 10px auto 0;
+  padding: 9px 24px;
+  background: var(--bg);
+  color: var(--text-muted);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition);
+  width: auto;
+}
+
+.modal-content button.cancelar:hover {
+  background: var(--border);
+}
+
+.modal-content .modal-content .tabs,
+.modal-content .tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-content .tabs button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: var(--bg);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.modal-content .tabs button.active {
+  background: var(--card);
+  border-bottom: 2px solid var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.tab { padding: 20px; }
