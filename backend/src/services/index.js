@@ -1,0 +1,1 @@
+export { default as AcaoService } from './acaoService.js'
