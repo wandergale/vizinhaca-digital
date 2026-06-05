@@ -9,6 +9,8 @@
 // O controller é responsável por receber as requisições, extrair os dados do corpo, chamar os métodos do serviço e retornar as respostas adequadas. 
 // O service é onde a lógica de negócio realmente acontece, como validação de dados, interação com o banco e geração de tokens.
 //
+const { ActionService } = require("../services");
+
 class AcaoController {
     static async listActions(req, res) {
         const actions = await ActionService.listActions();
@@ -19,6 +21,25 @@ class AcaoController {
         const { id } = req.body;
         const action = await ActionService.getAction(id);
         res.json(action);
+    }
+
+    static async createAction(req, res) {
+        const { title, description, date, location } = req.body;
+        const action = await ActionService.createAction({ title, description, date, location });
+        res.json(action);
+    }
+
+    static async updateAction(req, res) {
+        const { id } = req.params;
+        const { title, description, date, location } = req.body;
+        const action = await ActionService.updateAction(id, { title, description, date, location });
+        res.json(action);
+    }
+
+    static async deleteAction(req, res) {
+        const { id } = req.params;
+        await ActionService.deleteAction(id);
+        res.json({ message: 'Ação removida com sucesso' });
     }
 }
 

@@ -45,6 +45,33 @@ class AuthController {
         }
 
     }
+
+    static async updateMe(req, res) {
+        try {
+            const user = await AuthService.updateMe(req.user.id, req.body);
+            return res.json(user);
+        } catch (error) {
+            return res.status(error.statusCode || 500).json({ error: error.message });
+        }
+    }
+
+    static async deleteMe(req, res) {
+        try {
+            await AuthService.deleteMe(req.user.id);
+            return res.json({ message: 'Usuário removido com sucesso' });
+        } catch (error) {
+            return res.status(error.statusCode || 500).json({ error: error.message });
+        }
+    }
+
+    static async recoverPassword(req, res) {
+        try {
+            const result = await AuthService.recoverPassword(req.body.email);
+            return res.json(result.message);
+        } catch (error) {
+            return res.status(error.statusCode || 500).json({ error: error.message });
+        }
+    }
 }
 
 module.exports = AuthController;

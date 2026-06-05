@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { AcaoController } = require('../controllers');
-const authMiddleware = require('../middlewares/authMiddleware');
+const authMiddleware = require('../middlewares/authMiddleware.js');
+const roleMiddleware = require('../middlewares/validateMiddleware.js');
 
 const router = Router();
 
@@ -13,5 +14,8 @@ const router = Router();
 
 router.get('/', authMiddleware, AcaoController.listActions);
 router.get('/:id', authMiddleware, AcaoController.getAction);
+router.post('/', [authMiddleware, roleMiddleware('LEADER')], AcaoController.createAction);
+router.put('/:id', [authMiddleware, roleMiddleware('LEADER')], AcaoController.updateAction);
+router.delete('/:id', [authMiddleware, roleMiddleware('LEADER')], AcaoController.deleteAction);
 
 module.exports = router;

@@ -3,4 +3,8 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-module.exports = { validateEmail };
+function validatePassword(password) {
+    return password.length >= 6;
+}
+
+module.exports = { validateEmail, validatePassword };
