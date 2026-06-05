@@ -3,6 +3,7 @@ const prisma = require('../config/prisma.js');
 const bcrypt = require('bcrypt');
 const AppError = require('../utils/appError.js');
 const { validateEmail } = require('../utils/validators.js');
+const { generateToken, verifyToken } = require('../utils/jwt.js');
 
 class AuthService {
     static async register(name, email, password) {
@@ -31,10 +32,34 @@ class AuthService {
         const user = await prisma.user.findUnique({
             where: { email },
         });
-        // TODO: comparar senhas (hasheada)
-        // TODO: gerar JWT
+
+        if (!user) { throw new AppError('Email ou senha inválidos', 401); }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) { throw new AppError('Email ou senha inválidos', 401); }
+
+        const token = generateToken({ id: user.id, email: user.email, name: user.name });
+
         return token;
 
+    }
+
+    static async me(token) {
+        // retornar dados do usuário autenticado
+        const userId = decoded.id;
+
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+                email: true,
+                name: true,
+                role: true,
+                actions: true,
+                registration: true
+            }
+        });
+        return user;
     }
 }
 

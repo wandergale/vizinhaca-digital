@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { AcaoController } = require('../controllers');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 const router = Router();
 
@@ -10,7 +11,7 @@ const router = Router();
 // PUT    /actions/:id     - editar ação (LEADER)
 // DELETE /actions/:id     - remover ação (LEADER)
 
-router.get('/', AcaoController.listActions);
-router.get('/:id', AcaoController.getAction);
+router.get('/', authMiddleware, AcaoController.listActions);
+router.get('/:id', authMiddleware, AcaoController.getAction);
 
 module.exports = router;

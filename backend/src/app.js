@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-const { authRoutes, actionsRoutes } = require('./routes');
+const { authRoutes, actionsRoutes, registrationsRoutes } = require('./routes');
 
 const app = express();
 
@@ -16,6 +16,6 @@ app.get('/health', (req, res) => {
 // Rotas
 app.use('/auth', authRoutes);
 app.use('/actions', actionsRoutes);
-// app.use('/registrations', registrationsRoutes);
+app.use('/registrations', registrationsRoutes);
 
 module.exports = app;

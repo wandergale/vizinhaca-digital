@@ -4,14 +4,21 @@
 // - createAction: criar nova ação (apenas LEADER)
 // - updateAction: atualizar ação (apenas LEADER)
 // - deleteAction: remover ação (apenas LEADER)
+//
+// ATENÇÃO: este controller deve ser simples, delegando a maior parte da lógica para o authService. 
+// O controller é responsável por receber as requisições, extrair os dados do corpo, chamar os métodos do serviço e retornar as respostas adequadas. 
+// O service é onde a lógica de negócio realmente acontece, como validação de dados, interação com o banco e geração de tokens.
+//
 class AcaoController {
     static async listActions(req, res) {
-        res.json({ message: 'Listar todas as ações' });
+        const actions = await ActionService.listActions();
+        res.json(actions);
     }
 
     static async getAction(req, res) {
         const { id } = req.body;
-        res.json({ message: `Detalhar ação com ID ${id}` });
+        const action = await ActionService.getAction(id);
+        res.json(action);
     }
 }
 

@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { AuthController } = require('../controllers');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 const router = Router();
 
@@ -10,6 +11,6 @@ const router = Router();
 
 router.post('/register', AuthController.register);
 router.post('/login', AuthController.login);
-//router.get('/me', AuthController.me); // TODO: proteger rota com middleware de autenticação
+router.get('/me', authMiddleware, AuthController.me); // TODO: proteger rota com middleware de autenticação
 
 module.exports = router;
