@@ -12,32 +12,52 @@ class RegistrationController {
     static async createRegistration(req, res) {
         const { actionId } = req.body;
         const userId = req.user.id;
-        const registration = await RegistrationService.createRegistration(userId, actionId);
-        return res.json(registration);
+        try {
+            const registration = await RegistrationService.createRegistration(userId, actionId);
+            return res.json(registration);
+        } catch (error) {
+            next(error);
+        }
     }
 
     static async getMyRegistrations(req, res) {
         const userId = req.user.id;
-        const registrations = await RegistrationService.getMyRegistrations(userId);
-        return res.json(registrations);
+        try {
+            const registrations = await RegistrationService.getMyRegistrations(userId);
+            return res.json(registrations);
+        } catch (error) {
+            next(error);
+        }
     }
 
     static async cancelRegistration(req, res) {
         const registrationId = req.params.id;
         const userId = req.user.id;
-        await RegistrationService.cancelRegistration(userId, registrationId);
-        return res.json({ message: 'Inscrição cancelada com sucesso' });
+        try {
+            await RegistrationService.cancelRegistration(userId, registrationId);
+            return res.json({ message: 'Inscrição cancelada com sucesso' });
+        } catch (error) {
+            next(error);
+        }
     }
 
     static async getRegistrationById(req, res) {
         const registrationId = req.params.id;
-        const registration = await RegistrationService.getRegistrationById(registrationId);
-        return res.json(registration);
+        try {
+            const registration = await RegistrationService.getRegistrationById(registrationId);
+            return res.json(registration);
+        } catch (error) {
+            next(error);
+        }
     }
 
     static async listRegistrations(req, res) {
-        const registrations = await RegistrationService.listRegistrations();
-        return res.json(registrations);
+        try {
+            const registrations = await RegistrationService.listRegistrations();
+            return res.json(registrations);
+        } catch (error) {
+            next(error);
+        }
     }
 }
 

@@ -19,7 +19,7 @@ class AuthController {
 
             return res.json({ id: user.id, email: user.email });
         } catch (error) {
-            return res.status(error.statusCode || 500).json({ error: error.message });
+            next(error);
         }
     }
 
@@ -31,7 +31,7 @@ class AuthController {
 
             return res.json({ token });
         } catch (error) {
-            return res.status(error.statusCode || 500).json({ error: error.message });
+            next(error);
         }
     }
 
@@ -41,7 +41,7 @@ class AuthController {
 
             return res.json(user);
         } catch (error) {
-            return res.status(error.statusCode || 500).json({ error: error.message });
+            next(error);
         }
 
     }
@@ -51,7 +51,7 @@ class AuthController {
             const user = await AuthService.updateMe(req.user.id, req.body);
             return res.json(user);
         } catch (error) {
-            return res.status(error.statusCode || 500).json({ error: error.message });
+            next(error);
         }
     }
 
@@ -60,7 +60,7 @@ class AuthController {
             await AuthService.deleteMe(req.user.id);
             return res.json({ message: 'Usuário removido com sucesso' });
         } catch (error) {
-            return res.status(error.statusCode || 500).json({ error: error.message });
+            next(error);
         }
     }
 
@@ -69,7 +69,7 @@ class AuthController {
             const result = await AuthService.recoverPassword(req.body.email);
             return res.json(result.message);
         } catch (error) {
-            return res.status(error.statusCode || 500).json({ error: error.message });
+            next(error);
         }
     }
 }

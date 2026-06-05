@@ -13,33 +13,53 @@ const { ActionService } = require("../services");
 
 class AcaoController {
     static async listActions(req, res) {
-        const actions = await ActionService.listActions();
-        res.json(actions);
+        try {
+            const actions = await ActionService.listActions();
+            res.json(actions);
+        } catch (error) {
+            next(error);
+        }
     }
 
     static async getAction(req, res) {
         const { id } = req.body;
-        const action = await ActionService.getAction(id);
-        res.json(action);
+        try {
+            const action = await ActionService.getAction(id);
+            res.json(action);
+        } catch (error) {
+            next(error);
+        }
     }
 
     static async createAction(req, res) {
         const { title, description, date, location } = req.body;
-        const action = await ActionService.createAction({ title, description, date, location });
-        res.json(action);
+        try {
+            const action = await ActionService.createAction({ title, description, date, location });
+            res.json(action);
+        } catch (error) {
+            next(error);
+        }
     }
 
     static async updateAction(req, res) {
         const { id } = req.params;
         const { title, description, date, location } = req.body;
-        const action = await ActionService.updateAction(id, { title, description, date, location });
-        res.json(action);
+        try {
+            const action = await ActionService.updateAction(id, { title, description, date, location });
+            res.json(action);
+        } catch (error) {
+            next(error);
+        }
     }
 
     static async deleteAction(req, res) {
         const { id } = req.params;
-        await ActionService.deleteAction(id);
-        res.json({ message: 'Ação removida com sucesso' });
+        try {
+            await ActionService.deleteAction(id);
+            res.json({ message: 'Ação removida com sucesso' });
+        } catch (error) {
+            next(error);
+        }
     }
 }
 
