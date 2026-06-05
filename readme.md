@@ -1053,7 +1053,7 @@ No perfil, acessa "Minhas Inscrições" e visualiza o histórico. Decide cancela
 
 ---
 
-## 🔐 Variáveis de Ambiente
+## Variáveis de Ambiente
 
 ### Backend (`/backend/.env`)
 
@@ -1079,7 +1079,7 @@ No perfil, acessa "Minhas Inscrições" e visualiza o histórico. Decide cancela
 
 ---
 
-## 📦 Scripts Disponíveis
+## Scripts Disponíveis
 
 ### Backend (`/backend`)
 
@@ -1112,7 +1112,7 @@ npm run lint      # Verifica a qualidade do código com ESLint
 
 ---
 
-## 📐 Padrões de Código
+## Padrões de Código
 
 ### Respostas da API
 
