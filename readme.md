@@ -1,6 +1,6 @@
 # Vizinhança Digital
 
-> Plataforma web completa para cadastro, agendamento e gestão de ações comunitárias — conectando líderes e voluntários com tecnologia, organização e propósito social.
+> Vizinhança Digital é uma plataforma web feita para facilitar a vida das comunidades. A ideia é juntar em um só lugar tudo o que envolve cadastro de pessoas, agendamento de atividades e gestão de projetos sociais.
 
 ---
 
