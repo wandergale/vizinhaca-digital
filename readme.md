@@ -173,9 +173,7 @@ React (frontend)  ──Axios──▶  Express API (backend)  ──Prisma─�
 vizinhanca-digital/
 │
 ├── frontend/                             # Aplicação React 18 + Vite
-│   ├── public/                           # Arquivos estáticos públicos
-│   │   ├── favicon.ico
-│   │   └── logo.png
+│   │
 │   │
 │   └── src/                             # Código-fonte da aplicação
 │       ├── components/                  # Componentes reutilizáveis em toda a aplicação
@@ -247,9 +245,7 @@ vizinhanca-digital/
     ├── prisma/                          # Configuração do ORM Prisma
     │   ├── schema.prisma                # Definição dos modelos e relacionamentos do banco
     │   └── migrations/                  # Histórico versionado das migrações do banco
-    │       ├── 20240101_init/
-    │       ├── 20240102_add_category/
-    │       └── 20240103_add_slots/
+    │
     │
     └── src/                             # Código-fonte do backend
         ├── config/
