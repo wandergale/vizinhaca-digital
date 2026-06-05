@@ -1,6 +1,6 @@
 # Vizinhança Digital
 
-> Plataforma web para apoiar a gestão estratégica de comunidades e iniciativas de caráter social. A solução foi desenvolvida com o propósito de centralizar e integrar, em um ambiente digital unificado, os processos de cadastramento de participantes, planejamento e agendamento de atividades, bem como a administração de projetos comunitários. Dessa forma, busca-se promover maior eficiência operacional, organização das informações, transparência na gestão e fortalecimento da colaboração entre os diversos atores envolvidos nas ações sociais.
+> Plataforma web para apoiar a gestão estratégica de comunidades e iniciativas de caráter social. A solução foi desenvolvida com o propósito de centralizar e integrar, em um ambiente digital unificado, os processos de cadastro de participantes, planejamento e agendamento de atividades, bem como a administração de projetos comunitários. Dessa forma, busca-se promover maior eficiência operacional, organização das informações, transparência na gestão e fortalecimento da colaboração entre os diversos atores envolvidos nas ações sociais.
 ---
 
 ## Sumário
