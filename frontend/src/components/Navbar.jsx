@@ -2,11 +2,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../styles/navbar.css';
 
 const NAV_LINKS = [
+  { label: 'Início',           path: '/home' },
+  { label: 'Ações',            path: '/acoes' },
   { label: 'Calendário',       path: '/calendario' },
   { label: 'Cadastro de Ações', path: '/cadastro-acoes' },
   { label: 'Inscrição',        path: '/inscricao-voluntario' },
   { label: 'Minhas Inscrições', path: '/minhas-inscricoes' },
   { label: 'Painel',           path: '/painel-inscricoes' },
+  { label: 'Notificações',     path: '/notificacoes' },
+  { label: 'Mensagens',        path: '/mensagens' },
   { label: 'Relatórios',       path: '/relatorios' },
 ];
 
@@ -22,7 +26,7 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/cadastro-acoes" className="navbar-brand">
+      <Link to="/home" className="navbar-brand">
         <div className="navbar-brand-icon">🏘️</div>
         <span className="navbar-brand-name">Vizinhança Digital</span>
       </Link>

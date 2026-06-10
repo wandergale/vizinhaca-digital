@@ -262,3 +262,18 @@
   text-align: center;
   margin-bottom: 16px;
 }
+
+.auth-alt-link {
+  text-align: center;
+  margin-top: 18px;
+}
+
+.auth-alt-link a {
+  font-size: 13px;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.auth-alt-link a:hover {
+  text-decoration: underline;
+}

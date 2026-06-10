@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/autenticacao.css';
 
 const usuariosIniciais = [
@@ -8,8 +9,11 @@ const usuariosIniciais = [
 ];
 
 export default function Autenticacao() {
+  const navigate = useNavigate();
   const [usuarios, setUsuarios] = useState(usuariosIniciais);
   const [activeForm, setActiveForm] = useState('login');
+  // Para onde navegar ao fechar a confirmação (ex.: '/home' após o login)
+  const [destinoConfirmacao, setDestinoConfirmacao] = useState(null);
 
   const [emailLogin, setEmailLogin] = useState('');
   const [senhaLogin, setSenhaLogin] = useState('');
@@ -31,14 +35,19 @@ export default function Autenticacao() {
   const [modalVisible, setModalVisible] = useState(false);
   const [textoConfirmacao, setTextoConfirmacao] = useState('');
 
-  function abrirConfirmacao(texto) {
+  function abrirConfirmacao(texto, destino = null) {
     setTextoConfirmacao(texto);
+    setDestinoConfirmacao(destino);
     setModalVisible(true);
   }
 
   function fecharConfirmacao() {
     setModalVisible(false);
-    setActiveForm('login');
+    if (destinoConfirmacao) {
+      navigate(destinoConfirmacao);
+    } else {
+      setActiveForm('login');
+    }
   }
 
   function handleLoginSubmit(e) {
@@ -48,7 +57,7 @@ export default function Autenticacao() {
     );
     if (encontrado) {
       localStorage.setItem("usuarioLogado", encontrado.usuario);
-      abrirConfirmacao("Login realizado com sucesso!");
+      abrirConfirmacao("Login realizado com sucesso!", '/home');
       setMensagemLogin('');
     } else {
       setMensagemLogin('Usuário ou senha inválidos.');
@@ -272,6 +281,10 @@ export default function Autenticacao() {
           {mensagemAlteracao}
         </p>
       </form>
+
+      <p className="auth-alt-link">
+        <Link to="/login">Entrar pelo login da API →</Link>
+      </p>
 
       <div id="confirmacao" className="modal" style={{ display: modalVisible ? 'block' : 'none' }}>
         <div className="modal-content">

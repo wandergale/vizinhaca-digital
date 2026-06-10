@@ -1,0 +1,147 @@
+.notificacoes {
+  padding: 36px 40px;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.notificacoes-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.notificacoes-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.notificacoes-badge {
+  background: var(--danger-light);
+  color: var(--danger);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* ── Filtros ── */
+.notificacoes-filtros {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.notificacoes-filtros button {
+  padding: 7px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.notificacoes-filtros button:hover { border-color: var(--primary); }
+
+.notificacoes-filtros button.ativo {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.notificacoes-vazio {
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 24px 0;
+}
+
+/* ── Lista ── */
+.notificacoes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Cartão ── */
+.notification-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition);
+}
+
+.notification-card:hover { box-shadow: var(--shadow); }
+
+.notification-card.nao-lida { border-left-color: var(--primary); }
+.notification-card.lida { opacity: 0.75; }
+
+.notification-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.notification-card-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.notification-status {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.notification-status.nao-lida {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.notification-status.lida {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.notification-card-msg {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.notification-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notification-card-date {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.notification-card-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+}
+
+.notification-card-btn:hover { background: var(--primary-light); }
