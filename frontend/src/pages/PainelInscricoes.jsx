@@ -135,20 +135,7 @@ export default function PainelInscricoes() {
   }
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
-      <nav className="sidebar">
-        <h2>Sistema de Cadastro e Agendamento de Ações Comunitárias</h2>
-        <ul>
-          <li><a href="#">Início</a></li>
-          <li><a href="#">Administração</a></li>
-          <li><a href="#">Períodos</a></li>
-          <li><a href="#">Agendamentos</a></li>
-          <li><a href="#">Ações</a></li>
-          <li><a href="#">Relatórios</a></li>
-          <li><a href="#">Sair</a></li>
-        </ul>
-      </nav>
-
+    <>
       <main className="conteudo">
         <h1>Acompanhamento de Inscrições</h1>
 
@@ -238,6 +225,6 @@ export default function PainelInscricoes() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

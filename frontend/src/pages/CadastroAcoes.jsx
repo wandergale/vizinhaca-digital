@@ -115,19 +115,7 @@ export default function CadastroAcoes() {
   }
 
   return (
-    <div className="container">
-      <aside className="sidebar">
-        <h2>Sistema de Cadastro e Agendamento de Ações Comunitárias</h2>
-        <ul>
-          <li>Início</li>
-          <li>Administração</li>
-          <li>Períodos</li>
-          <li>Agendamentos</li>
-          <li>Ações</li>
-          <li>Sair</li>
-        </ul>
-      </aside>
-
+    <>
       <main className="content">
         <h2>Cadastro de Ações</h2>
         <div className="acoes-header">
@@ -264,6 +252,6 @@ export default function CadastroAcoes() {
           </form>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -111,19 +111,7 @@ export default function InscricaoVoluntario() {
   }
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
-      <div className="sidebar">
-        <h2>Sistema de Cadastro e Agendamento de Ações Comunitárias</h2>
-        <ul>
-          <li>Início</li>
-          <li>Administração</li>
-          <li>Períodos</li>
-          <li>Agendamentos</li>
-          <li className="active">Ações</li>
-          <li>Sair</li>
-        </ul>
-      </div>
-
+    <>
       <div className="main">
         <h1>Ficha de Inscrição</h1>
         <form id="formInscricao" onSubmit={confirmarInscricao}>
@@ -247,6 +235,6 @@ export default function InscricaoVoluntario() {
           <button className="fechar" onClick={fecharConfirmacao}>Fechar</button>
         </div>
       </div>
-    </div>
+    </>
   );
 }

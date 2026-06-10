@@ -72,19 +72,7 @@ export default function EdicaoCancelar() {
   }
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
-      <div className="sidebar">
-        <h2>Sistema de Cadastro e Agendamento de Ações Comunitárias</h2>
-        <ul>
-          <li>Início</li>
-          <li>Administração</li>
-          <li>Períodos</li>
-          <li>Agendamentos</li>
-          <li className="active">Minhas Inscrições</li>
-          <li>Sair</li>
-        </ul>
-      </div>
-
+    <>
       <div className="main">
         <h1>Minhas Inscrições</h1>
         <table className="inscricoes">
@@ -160,6 +148,6 @@ export default function EdicaoCancelar() {
           <button className="cancelar" onClick={fecharModal}>Não</button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
