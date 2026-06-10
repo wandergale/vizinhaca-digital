@@ -7,6 +7,9 @@ import EdicaoCancelar from './pages/EdicaoCancelar';
 import InscricaoVoluntario from './pages/InscricaoVoluntario';
 import PainelInscricoes from './pages/PainelInscricoes';
 import RelatoriosAcoes from './pages/RelatoriosAcoes';
+import EditarAcao from './pages/EditarAcao';
+import Notificacoes from './pages/Notificacoes';
+import Mensagens from './pages/Mensagens';
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
         <Route path="/inscricao-voluntario" element={<InscricaoVoluntario />} />
         <Route path="/painel-inscricoes"   element={<PainelInscricoes />} />
         <Route path="/relatorios"          element={<RelatoriosAcoes />} />
+        <Route path="/editar-acao/:id"     element={<EditarAcao />} />
+        <Route path="/notificacoes"        element={<Notificacoes />} />
+        <Route path="/mensagens"           element={<Mensagens />} />
       </Route>
     </Routes>
   );

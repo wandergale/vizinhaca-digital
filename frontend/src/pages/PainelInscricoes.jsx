@@ -1,19 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
+import inscricaoService from '../services/inscricaoService';
 import '../styles/painel-inscricoes.css';
 
 const inscritosIniciais = [
-  { nome: "Ana Paula Souza", email: "ana.souza@gmail.com", acao: "Revitalização Praça", data: "2026-05-11", prioridade: "Alta", status: "Confirmado" },
-  { nome: "Carlos Eduardo Lima", email: "carlos.lima@yahoo.com", acao: "Pintura Escola Norte", data: "2026-05-18", prioridade: "Média", status: "Pendente" },
-  { nome: "Fernanda Oliveira", email: "fernanda.oliveira@hotmail.com", acao: "Limpeza Parque Águas", data: "2026-05-25", prioridade: "Baixa", status: "Confirmado" },
-  { nome: "Roberto Santos", email: "roberto.santos@gmail.com", acao: "Revitalização Praça", data: "2026-05-11", prioridade: "Média", status: "Pendente" },
-  { nome: "Patrícia Gomes", email: "patricia.gomes@gmail.com", acao: "Pintura Escola Norte", data: "2026-05-18", prioridade: "Alta", status: "Confirmado" },
-  { nome: "Lucas Almeida", email: "lucas.almeida@gmail.com", acao: "Limpeza Parque Águas", data: "2026-05-25", prioridade: "Baixa", status: "Pendente" },
-  { nome: "Mariana Costa", email: "mariana.costa@gmail.com", acao: "Revitalização Praça", data: "2026-05-11", prioridade: "Alta", status: "Confirmado" },
-  { nome: "João Pedro Nunes", email: "joao.nunes@gmail.com", acao: "Pintura Escola Norte", data: "2026-05-18", prioridade: "Média", status: "Pendente" },
-  { nome: "Cláudia Ferreira", email: "claudia.ferreira@gmail.com", acao: "Limpeza Parque Águas", data: "2026-05-25", prioridade: "Baixa", status: "Confirmado" },
-  { nome: "Bruno Martins", email: "bruno.martins@gmail.com", acao: "Revitalização Praça", data: "2026-05-11", prioridade: "Média", status: "Pendente" }
+  { id: "1", nome: "Ana Paula Souza", email: "ana.souza@gmail.com", acao: "Revitalização Praça", data: "2026-05-11", prioridade: "Alta", status: "Confirmado" },
+  { id: "2", nome: "Carlos Eduardo Lima", email: "carlos.lima@yahoo.com", acao: "Pintura Escola Norte", data: "2026-05-18", prioridade: "Média", status: "Pendente" },
+  { id: "3", nome: "Fernanda Oliveira", email: "fernanda.oliveira@hotmail.com", acao: "Limpeza Parque Águas", data: "2026-05-25", prioridade: "Baixa", status: "Confirmado" },
+  { id: "4", nome: "Roberto Santos", email: "roberto.santos@gmail.com", acao: "Revitalização Praça", data: "2026-05-11", prioridade: "Média", status: "Pendente" },
+  { id: "5", nome: "Patrícia Gomes", email: "patricia.gomes@gmail.com", acao: "Pintura Escola Norte", data: "2026-05-18", prioridade: "Alta", status: "Confirmado" },
+  { id: "6", nome: "Lucas Almeida", email: "lucas.almeida@gmail.com", acao: "Limpeza Parque Águas", data: "2026-05-25", prioridade: "Baixa", status: "Pendente" },
+  { id: "7", nome: "Mariana Costa", email: "mariana.costa@gmail.com", acao: "Revitalização Praça", data: "2026-05-11", prioridade: "Alta", status: "Confirmado" },
+  { id: "8", nome: "João Pedro Nunes", email: "joao.nunes@gmail.com", acao: "Pintura Escola Norte", data: "2026-05-18", prioridade: "Média", status: "Pendente" },
+  { id: "9", nome: "Cláudia Ferreira", email: "claudia.ferreira@gmail.com", acao: "Limpeza Parque Águas", data: "2026-05-25", prioridade: "Baixa", status: "Confirmado" },
+  { id: "10", nome: "Bruno Martins", email: "bruno.martins@gmail.com", acao: "Revitalização Praça", data: "2026-05-11", prioridade: "Média", status: "Pendente" }
 ];
+
+// Converte a inscrição vinda do backend para o formato usado na tabela
+function mapearInscricao(r) {
+  return {
+    id: r.id,
+    nome: r.user?.name ?? r.nome ?? '—',
+    email: r.user?.email ?? r.email ?? '—',
+    acao: r.action?.title ?? r.acao ?? '—',
+    data: (r.action?.date ?? r.data ?? '').toString().slice(0, 10),
+    prioridade: r.action?.priority ?? r.prioridade ?? 'Média',
+    status: r.status ?? 'Pendente',
+  };
+}
 
 export default function PainelInscricoes() {
   const [inscritos, setInscritos] = useState(inscritosIniciais);
@@ -22,6 +36,24 @@ export default function PainelInscricoes() {
   const [filtrados, setFiltrados] = useState(inscritosIniciais);
   const [modalVisible, setModalVisible] = useState(false);
   const [voluntarioModal, setVoluntarioModal] = useState(null);
+
+  // Busca inscrições no backend — GET /registrations. Em caso de falha,
+  // mantém os dados de exemplo para a tela continuar demonstrável.
+  useEffect(() => {
+    async function carregar() {
+      try {
+        const dados = await inscricaoService.listar();
+        if (Array.isArray(dados) && dados.length > 0) {
+          const mapeados = dados.map(mapearInscricao);
+          setInscritos(mapeados);
+          setFiltrados(mapeados);
+        }
+      } catch (err) {
+        // Backend indisponível — segue com inscritosIniciais
+      }
+    }
+    carregar();
+  }, []);
 
   function calcularResumo(lista) {
     return {
@@ -34,26 +66,35 @@ export default function PainelInscricoes() {
 
   const resumo = calcularResumo(filtrados);
 
-  function aprovarInscricao(index) {
-    const novoInscritos = [...inscritos];
-    const itemOriginal = filtrados[index];
-    const indexOriginal = novoInscritos.findIndex(v =>
-      v.nome === itemOriginal.nome && v.email === itemOriginal.email
+  // Atualiza o status localmente e dispara a chamada ao backend
+  function atualizarStatus(itemOriginal, novoStatus) {
+    const novoInscritos = inscritos.map(v =>
+      v.id === itemOriginal.id ? { ...v, status: novoStatus } : v
     );
-    if (indexOriginal !== -1) novoInscritos[indexOriginal].status = "Confirmado";
     setInscritos(novoInscritos);
     aplicarFiltrosNaLista(novoInscritos, filtroAcao, filtroPrioridade);
   }
 
-  function rejeitarInscricao(index) {
-    const novoInscritos = [...inscritos];
+  // PATCH /registrations/:id/aprovar
+  async function aprovarInscricao(index) {
     const itemOriginal = filtrados[index];
-    const indexOriginal = novoInscritos.findIndex(v =>
-      v.nome === itemOriginal.nome && v.email === itemOriginal.email
-    );
-    if (indexOriginal !== -1) novoInscritos[indexOriginal].status = "Rejeitado";
-    setInscritos(novoInscritos);
-    aplicarFiltrosNaLista(novoInscritos, filtroAcao, filtroPrioridade);
+    atualizarStatus(itemOriginal, "Confirmado");
+    try {
+      await inscricaoService.aprovar(itemOriginal.id);
+    } catch (err) {
+      // Mantém o estado local caso o backend ainda não exponha a rota
+    }
+  }
+
+  // PATCH /registrations/:id/rejeitar
+  async function rejeitarInscricao(index) {
+    const itemOriginal = filtrados[index];
+    atualizarStatus(itemOriginal, "Rejeitado");
+    try {
+      await inscricaoService.rejeitar(itemOriginal.id);
+    } catch (err) {
+      // Mantém o estado local caso o backend ainda não exponha a rota
+    }
   }
 
   function abrirDetalhes(index) {

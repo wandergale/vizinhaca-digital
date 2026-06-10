@@ -1,0 +1,107 @@
+.editar-acao {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.editar-acao-card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: 32px 36px;
+}
+
+.editar-acao-card h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.editar-acao-loading {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.editar-acao form {
+  display: flex;
+  flex-direction: column;
+}
+
+.editar-acao label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 14px 0 6px;
+}
+
+.editar-acao input,
+.editar-acao textarea {
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: var(--text);
+  background: var(--card);
+  outline: none;
+  transition: border-color var(--transition);
+  resize: vertical;
+}
+
+.editar-acao input:focus,
+.editar-acao textarea:focus {
+  border-color: var(--primary);
+}
+
+.editar-acao-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.editar-acao-buttons button {
+  flex: 1;
+  padding: 11px 16px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), opacity var(--transition);
+}
+
+.editar-acao-buttons .btn-salvar {
+  background: var(--primary);
+  color: #fff;
+}
+
+.editar-acao-buttons .btn-salvar:hover { background: var(--primary-hover); }
+.editar-acao-buttons .btn-salvar:disabled { opacity: 0.6; cursor: default; }
+
+.editar-acao-buttons .btn-cancelar {
+  background: var(--border);
+  color: var(--text);
+}
+
+.editar-acao-buttons .btn-cancelar:hover { background: #cbd5e1; }
+
+.editar-acao-feedback {
+  margin-top: 18px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.editar-acao-feedback.sucesso {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.editar-acao-feedback.erro {
+  background: var(--danger-light);
+  color: var(--danger);
+}

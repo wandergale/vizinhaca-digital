@@ -7,6 +7,8 @@ const NAV_LINKS = [
   { label: 'Inscrição',        path: '/inscricao-voluntario' },
   { label: 'Minhas Inscrições', path: '/minhas-inscricoes' },
   { label: 'Painel',           path: '/painel-inscricoes' },
+  { label: 'Notificações',     path: '/notificacoes' },
+  { label: 'Mensagens',        path: '/mensagens' },
   { label: 'Relatórios',       path: '/relatorios' },
 ];
 

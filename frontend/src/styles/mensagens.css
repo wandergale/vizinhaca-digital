@@ -1,0 +1,161 @@
+.mensagens {
+  padding: 36px 40px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.mensagens h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.mensagens-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .mensagens-grid { grid-template-columns: 1fr; }
+}
+
+.mensagens-form-box,
+.mensagens-historico-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 24px 26px;
+}
+
+.mensagens-form-box h2,
+.mensagens-historico-box h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+
+/* ── Formulário ── */
+.message-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-form label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 12px 0 6px;
+}
+
+.message-form input,
+.message-form select,
+.message-form textarea {
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: var(--text);
+  background: var(--card);
+  outline: none;
+  transition: border-color var(--transition);
+  resize: vertical;
+}
+
+.message-form input:focus,
+.message-form select:focus,
+.message-form textarea:focus {
+  border-color: var(--primary);
+}
+
+.message-form-btn {
+  margin-top: 22px;
+  padding: 11px 16px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), opacity var(--transition);
+}
+
+.message-form-btn:hover { background: var(--primary-hover); }
+.message-form-btn:disabled { opacity: 0.6; cursor: default; }
+
+.mensagens-feedback {
+  margin-top: 16px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.mensagens-feedback.sucesso { background: var(--success-light); color: var(--success); }
+.mensagens-feedback.erro { background: var(--danger-light); color: var(--danger); }
+
+/* ── Histórico ── */
+.message-history {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.message-history-vazio {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.message-history-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  background: #f8fafc;
+}
+
+.message-history-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.message-history-top strong {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.message-history-date {
+  font-size: 12px;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+.message-history-acao {
+  display: block;
+  font-size: 12px;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.message-history-msg {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.message-history-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--info);
+  word-break: break-all;
+}
