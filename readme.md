@@ -109,6 +109,7 @@ Hoje, líderes comunitários dependem de grupos de WhatsApp, posts no Facebook, 
 | cors | — | Controle de acesso entre origens diferentes |
 | dotenv | — | Carregamento de variáveis de ambiente do arquivo `.env` |
 | nodemon | — | Reinício automático do servidor durante o desenvolvimento |
+| nodemailer | — | Envio de e-mails transacionais e em lote |
 
 ### Banco de Dados
 
@@ -186,6 +187,8 @@ vizinhanca-digital/
 │       │   ├── ConfirmacaoModal.jsx     # Modal de confirmação genérico (ex: cancelar inscrição)
 │       │   ├── FiltroAcoes.jsx          # Componente de filtros por categoria, data e prioridade
 │       │   ├── Spinner.jsx              # Indicador de carregamento
+│       │   ├── AprovacaoModal.jsx       # Modal de aprovação/rejeição de inscrição pendente
+│       │   ├── NotificacaoBadge.jsx     # Badge com contador de notificações não lidas
 │       │   └── RotaPrivada.jsx          # HOC que protege rotas que exigem autenticação
 │       │
 │       ├── pages/                       # Páginas principais da aplicação
@@ -202,21 +205,26 @@ vizinhanca-digital/
 │       │   ├── PainelInscricoes.jsx     # Painel de inscritos por ação (exclusivo para líderes)
 │       │   ├── Calendario.jsx           # Calendário visual de ações
 │       │   ├── RelatoriosAcoes.jsx      # Dashboard de relatórios gerenciais
+│       │   ├── Notificacoes.jsx         # Central de notificações do usuário
+│       │   ├── EnvioMensagens.jsx       # Interface de envio de mensagens em lote para inscritos
 │       │   └── NaoEncontrado.jsx        # Página de erro 404
 │       │
 │       ├── services/                    # Camada de comunicação com a API
 │       │   ├── api.js                   # Instância configurada do Axios com interceptors
 │       │   ├── authService.js           # Login, registro e gerenciamento do token JWT
 │       │   ├── acaoService.js           # CRUD completo de ações comunitárias
-│       │   ├── inscricaoService.js      # Inscrição, edição e cancelamento
+│       │   ├── inscricaoService.js      # Inscrição, edição, aprovação e cancelamento
 │       │   ├── calendarioService.js     # Busca de ações por período
 │       │   ├── relatorioService.js      # Busca de dados para os relatórios
+│       │   ├── notificacaoService.js    # Busca, leitura e exclusão de notificações
+│       │   ├── mensagemService.js       # Envio de mensagens em lote para inscritos
 │       │   └── usuarioService.js        # Perfil, senha e dados do usuário
 │       │
 │       ├── hooks/                       # Custom Hooks React
 │       │   ├── useAuth.js               # Hook de autenticação e controle de sessão
 │       │   ├── useAcoes.js              # Hook para busca e cache de ações
-│       │   └── useInscricoes.js         # Hook para gerenciar estado das inscrições
+│       │   ├── useInscricoes.js         # Hook para gerenciar estado das inscrições
+│       │   └── useNotificacoes.js       # Hook para polling e estado das notificações
 │       │
 │       ├── context/                     # Context API para estado global
 │       │   └── AuthContext.jsx          # Contexto global de autenticação do usuário
@@ -231,6 +239,8 @@ vizinhanca-digital/
 │       │   ├── calendario.css           # Estilos do calendário
 │       │   ├── relatorios.css           # Estilos dos gráficos e relatórios
 │       │   ├── painel.css               # Estilos do painel de inscrições
+│       │   ├── notificacoes.css         # Estilos da central de notificações
+│       │   ├── mensagens.css            # Estilos do módulo de envio em lote
 │       │   └── perfil.css               # Estilos da página de perfil
 │       │
 │       ├── utils/                       # Funções utilitárias do frontend
@@ -255,9 +265,11 @@ vizinhanca-digital/
         │   ├── authController.js        # Login, registro e logout
         │   ├── usuarioController.js     # Perfil, senha e dados do usuário
         │   ├── acaoController.js        # CRUD de ações comunitárias
-        │   ├── inscricaoController.js   # Criação, edição e cancelamento de inscrições
+        │   ├── inscricaoController.js   # Criação, edição, aprovação e cancelamento de inscrições
         │   ├── calendarioController.js  # Ações filtradas por data e período
         │   ├── relatorioController.js   # Geração de estatísticas e métricas
+        │   ├── notificacaoController.js # Listagem, leitura e exclusão de notificações
+        │   ├── mensagemController.js    # Envio de mensagens em lote para inscritos
         │   └── dashboardController.js   # Dados consolidados para o painel do líder
         │
         ├── middlewares/                 # Middlewares Express executados antes dos controllers
@@ -273,17 +285,21 @@ vizinhanca-digital/
         │   ├── inscricaoRoutes.js       # /registrations, /registrations/:id
         │   ├── calendarioRoutes.js      # /calendar?start=&end=
         │   ├── relatorioRoutes.js       # /reports/actions, /reports/summary
+        │   ├── notificacaoRoutes.js     # /notifications, /notifications/:id
+        │   ├── mensagemRoutes.js        # /messages/bulk
         │   └── dashboardRoutes.js       # /dashboard
         │
         ├── services/                    # Regras de negócio da aplicação
         │   ├── authService.js           # Lógica de autenticação e geração de JWT
         │   ├── usuarioService.js        # Lógica de gerenciamento de usuários
         │   ├── acaoService.js           # Lógica das ações comunitárias
-        │   ├── inscricaoService.js      # Lógica de inscrições e controle de vagas
+        │   ├── inscricaoService.js      # Lógica de inscrições, controle de vagas e aprovações
         │   ├── calendarioService.js     # Lógica de consulta de ações por data
         │   ├── relatorioService.js      # Lógica de geração de relatórios e métricas
         │   ├── dashboardService.js      # Lógica de dados consolidados do painel
-        │   └── emailService.js          # Envio de e-mails para recuperação de senha
+        │   ├── notificacaoService.js    # Criação, entrega e gestão de notificações
+        │   ├── mensagemService.js       # Lógica de envio de mensagens em lote
+        │   └── emailService.js          # Envio de e-mails transacionais e em massa
         │
         ├── utils/                       # Funções utilitárias do backend
         │   ├── validators.js            # Schemas de validação dos endpoints
@@ -448,7 +464,7 @@ Acesse em: `http://localhost:5555`
 
 ## Banco de Dados
 
-O schema do banco é gerenciado pelo Prisma e composto por três modelos principais:
+O schema do banco é gerenciado pelo Prisma e composto por quatro modelos principais:
 
 ### Model User (Usuário)
 
@@ -467,6 +483,7 @@ Representa todos os usuários do sistema, podendo ser líderes comunitários ou 
 | `resetTokenExp` | DateTime? | Data de expiração do token de recuperação (nullable) |
 | `actions` | Action[] | Ações criadas por este líder (relação 1:N) |
 | `registrations` | Registration[] | Inscrições deste voluntário (relação 1:N) |
+| `notifications` | Notification[] | Notificações recebidas pelo usuário (relação 1:N) |
 
 ---
 
@@ -484,6 +501,7 @@ Representa cada ação ou evento comunitário cadastrado por um líder.
 | `priority` | Enum | `HIGH` (alta), `MEDIUM` (média) ou `LOW` (baixa) |
 | `category` | Enum | `SAUDE`, `EDUCACAO`, `MEIO_AMBIENTE`, `SEGURANCA`, `CULTURA` ou `OUTROS` |
 | `slots` | Int | Número máximo de vagas disponíveis |
+| `requiresApproval` | Boolean | Se `true`, inscrições ficam pendentes até aprovação manual do líder |
 | `createdAt` | DateTime | Data de criação do registro |
 | `updatedAt` | DateTime | Data da última atualização |
 | `createdById` | Int (FK) | ID do líder responsável pela ação |
@@ -501,11 +519,30 @@ Representa a inscrição de um voluntário em uma ação comunitária.
 | `id` | Int (PK) | Identificador único auto-incremento |
 | `userId` | Int (FK) | ID do voluntário inscrito |
 | `actionId` | Int (FK) | ID da ação em que se inscreveu |
-| `status` | Enum | `ACTIVE` (inscrição ativa) ou `CANCELLED` (cancelada) |
+| `status` | Enum | `PENDING` (aguardando aprovação), `ACTIVE` (aprovada/ativa) ou `CANCELLED` (cancelada) |
 | `createdAt` | DateTime | Data e hora da inscrição |
 | `updatedAt` | DateTime | Data da última atualização |
 | `user` | User | Relação com o voluntário |
 | `action` | Action | Relação com a ação |
+
+---
+
+### Model Notification (Notificação)
+
+Representa uma notificação gerada pelo sistema e entregue a um usuário específico.
+
+| Campo | Tipo | Descrição |
+|---|---|---|
+| `id` | Int (PK) | Identificador único auto-incremento |
+| `userId` | Int (FK) | ID do destinatário da notificação |
+| `type` | Enum | `REGISTRATION_APPROVED`, `REGISTRATION_REJECTED`, `ACTION_UPDATED`, `ACTION_CANCELLED`, `NEW_REGISTRATION`, `MESSAGE` |
+| `title` | String | Título curto da notificação |
+| `body` | String | Texto completo da mensagem |
+| `read` | Boolean | `false` enquanto não lida; `true` após o usuário visualizar |
+| `actionId` | Int? (FK) | ID da ação relacionada, quando aplicável (nullable) |
+| `createdAt` | DateTime | Data e hora de criação da notificação |
+| `user` | User | Relação com o destinatário |
+| `action` | Action? | Relação com a ação relacionada (nullable) |
 
 ---
 
@@ -516,7 +553,8 @@ Representa a inscrição de um voluntário em uma ação comunitária.
 | `Role` | `LEADER` \| `VOLUNTEER` |
 | `Priority` | `HIGH` \| `MEDIUM` \| `LOW` |
 | `Category` | `SAUDE` \| `EDUCACAO` \| `MEIO_AMBIENTE` \| `SEGURANCA` \| `CULTURA` \| `OUTROS` |
-| `Status` | `ACTIVE` \| `CANCELLED` |
+| `Status` | `PENDING` \| `ACTIVE` \| `CANCELLED` |
+| `NotificationType` | `REGISTRATION_APPROVED` \| `REGISTRATION_REJECTED` \| `ACTION_UPDATED` \| `ACTION_CANCELLED` \| `NEW_REGISTRATION` \| `MESSAGE` |
 
 ---
 
@@ -596,8 +634,8 @@ Representa a inscrição de um voluntário em uma ação comunitária.
 | `GET` | `/actions` | PUBLIC | Lista todas as ações (suporta filtros e paginação) |
 | `GET` | `/actions/:id` | PUBLIC | Retorna detalhes completos de uma ação |
 | `POST` | `/actions` | LEADER | Cadastra uma nova ação comunitária |
-| `PUT` | `/actions/:id` | LEADER | Atualiza uma ação existente (somente o criador) |
-| `DELETE` | `/actions/:id` | LEADER | Remove uma ação (somente o criador) |
+| `PUT` | `/actions/:id` | LEADER | Atualiza uma ação existente (somente o criador); notifica os inscritos automaticamente |
+| `DELETE` | `/actions/:id` | LEADER | Remove uma ação (somente o criador); notifica os inscritos automaticamente |
 
 **Query params disponíveis para `GET /actions`:**
 
@@ -619,6 +657,8 @@ Representa a inscrição de um voluntário em uma ação comunitária.
 | `GET` | `/registrations` | AUTH | Lista as inscrições do usuário autenticado |
 | `GET` | `/registrations?actionId=:id` | LEADER | Lista todos os voluntários inscritos em uma ação |
 | `PUT` | `/registrations/:id` | AUTH | Edita uma inscrição (ex: alterar status) |
+| `PUT` | `/registrations/:id/approve` | LEADER | Aprova uma inscrição com status `PENDING` e notifica o voluntário |
+| `PUT` | `/registrations/:id/reject` | LEADER | Rejeita uma inscrição com status `PENDING` e notifica o voluntário |
 | `DELETE` | `/registrations/:id` | AUTH | Cancela uma inscrição e libera a vaga automaticamente |
 
 ---
@@ -648,6 +688,45 @@ Representa a inscrição de um voluntário em uma ação comunitária.
 
 ---
 
+### Notificações
+
+| Método | Rota | Acesso | Descrição |
+|---|---|---|---|
+| `GET` | `/notifications` | AUTH | Lista todas as notificações do usuário autenticado (com paginação) |
+| `GET` | `/notifications/unread-count` | AUTH | Retorna a contagem de notificações não lidas |
+| `PUT` | `/notifications/:id/read` | AUTH | Marca uma notificação específica como lida |
+| `PUT` | `/notifications/read-all` | AUTH | Marca todas as notificações do usuário como lidas |
+| `DELETE` | `/notifications/:id` | AUTH | Remove uma notificação específica |
+
+---
+
+### Mensagens em Lote
+
+| Método | Rota | Acesso | Descrição |
+|---|---|---|---|
+| `POST` | `/messages/bulk` | LEADER | Envia uma mensagem para todos os inscritos ativos de uma ação |
+
+**Exemplo de body para `POST /messages/bulk`:**
+
+```json
+{
+  "actionId": 42,
+  "subject": "Atualização importante sobre o Mutirão",
+  "body": "Informamos que o ponto de encontro foi alterado para a entrada lateral do parque. Contamos com a presença de todos!",
+  "channel": "email"
+}
+```
+
+**Parâmetro `channel`:**
+
+| Valor | Comportamento |
+|---|---|
+| `email` | Envia e-mail para cada inscrito ativo via SMTP configurado |
+| `notification` | Cria uma notificação in-app para cada inscrito ativo |
+| `both` | Envia e-mail e cria notificação in-app simultaneamente |
+
+---
+
 ### Dashboard
 
 | Método | Rota | Acesso | Descrição |
@@ -664,8 +743,8 @@ Representa a inscrição de um voluntário em uma ação comunitária.
 Define todas as rotas da aplicação utilizando React Router DOM v6. As rotas são organizadas em três grupos: **públicas** (acessíveis por qualquer visitante), **privadas** (exigem autenticação) e **de líder** (exigem perfil `LEADER`). O componente `RotaPrivada` verifica a presença e validade do token JWT antes de renderizar cada página protegida.
 
 - **Rotas públicas:** `/`, `/login`, `/cadastro`, `/recuperar-senha`, `/redefinir-senha/:token`
-- **Rotas privadas (AUTH):** `/perfil`, `/inscricoes`, `/calendario`
-- **Rotas de líder (LEADER):** `/acoes/cadastrar`, `/acoes/:id/editar`, `/painel`, `/relatorios`
+- **Rotas privadas (AUTH):** `/perfil`, `/inscricoes`, `/calendario`, `/notificacoes`
+- **Rotas de líder (LEADER):** `/acoes/cadastrar`, `/acoes/:id/editar`, `/painel`, `/relatorios`, `/mensagens`
 
 ---
 
@@ -689,7 +768,7 @@ Exibe a lista pública de todas as ações comunitárias disponíveis, com múlt
 ---
 
 #### `CadastroAcoes.jsx` — Formulário de Ação
-Formulário completo com validação em tempo real para cadastrar ou editar uma ação comunitária. No modo de edição, os campos já são pré-preenchidos com os dados existentes.
+Formulário completo com validação em tempo real para cadastrar ou editar uma ação comunitária. No modo de edição, os campos já são pré-preenchidos com os dados existentes. Ao salvar uma edição, o sistema envia automaticamente notificações para todos os voluntários inscritos informando sobre as mudanças.
 
 | Campo | Regra de validação |
 |---|---|
@@ -700,6 +779,7 @@ Formulário completo com validação em tempo real para cadastrar ou editar uma 
 | Prioridade | Alta / Média / Baixa (seleção obrigatória) |
 | Categoria | Saúde / Educação / Meio Ambiente / Segurança / Cultura / Outros |
 | Limite de vagas | Número inteiro positivo obrigatório |
+| Requer aprovação | Checkbox opcional — quando marcado, novas inscrições ficam com status `PENDING` até serem aprovadas pelo líder |
 
 ---
 
@@ -708,13 +788,14 @@ Página completa de uma ação comunitária com comportamento diferente para cad
 
 **Para voluntários:**
 - Botão "Quero me inscrever" (habilitado somente se há vagas)
-- Mensagem de confirmação caso já esteja inscrito
+- Mensagem de confirmação caso já esteja inscrito ou com inscrição pendente de aprovação
 - Botão "Cancelar inscrição" com modal de confirmação
 
 **Para líderes (criador da ação):**
 - Botão "Editar ação"
 - Botão "Excluir ação" com modal de confirmação
 - Link para ver a lista completa de inscritos
+- Botão "Enviar mensagem aos inscritos" com acesso direto ao módulo de mensagens em lote
 
 **Indicador de vagas:**
 - Verde: "X vagas disponíveis"
@@ -729,10 +810,11 @@ Visualização de todas as ações em formato de calendário interativo, com alt
 ---
 
 #### `PainelInscricoes.jsx` — Painel do Líder
-Painel exclusivo para líderes gerenciarem os voluntários inscritos em suas ações. Permite filtrar, buscar e exportar a lista de inscritos em CSV para comunicação e organização offline.
+Painel exclusivo para líderes gerenciarem os voluntários inscritos em suas ações. Para ações com aprovação manual habilitada, exibe uma aba separada de inscrições pendentes com botões de aprovação e rejeição individuais. Permite filtrar, buscar e exportar a lista de inscritos em CSV.
 
 - Tabela com nome, e-mail, data de inscrição e status de cada voluntário
-- Filtros por status (ativa / cancelada) e data de inscrição
+- **Aba "Pendentes"** com botões de aprovar/rejeitar individuais (visível apenas quando `requiresApproval = true`)
+- Filtros por status (pendente / ativa / cancelada) e data de inscrição
 - Campo de busca por nome ou e-mail
 - Contador de inscritos vs limite de vagas
 - Exportação da lista filtrada em formato CSV
@@ -754,6 +836,29 @@ Dashboard completo de dados e métricas para líderes avaliarem o impacto de sua
 
 **Filtros:** período (data inicial e final), categoria e prioridade  
 **Exportação:** relatório completo em CSV
+
+---
+
+#### `Notificacoes.jsx` — Central de Notificações
+Página dedicada à listagem de todas as notificações recebidas pelo usuário autenticado. As notificações são geradas automaticamente pelo sistema em resposta a eventos relevantes — como aprovação ou rejeição de uma inscrição, atualização ou cancelamento de uma ação em que o usuário está inscrito, e mensagens enviadas em lote pelo líder.
+
+- Lista cronológica de notificações com destaque visual para as não lidas
+- Badge com contador de não lidas exibido na `Navbar` em tempo real (polling a cada 60 segundos)
+- Botão "Marcar todas como lidas"
+- Clique em uma notificação marca como lida e redireciona para a ação relacionada, quando aplicável
+- Exclusão individual de notificações
+
+---
+
+#### `EnvioMensagens.jsx` — Mensagens em Lote
+Interface exclusiva para líderes enviarem comunicados diretamente para todos os voluntários com inscrição ativa em uma de suas ações. Útil para informar mudanças de última hora, lembretes e atualizações logísticas.
+
+- Seleção da ação destinatária a partir das ações criadas pelo líder
+- Exibição do número de destinatários antes do envio
+- Campos de assunto (para e-mail) e corpo da mensagem
+- Seleção do canal de envio: e-mail, notificação in-app ou ambos
+- Confirmação com resumo antes do envio final
+- Feedback de progresso e resultado (enviados com sucesso / falhas)
 
 ---
 
@@ -782,15 +887,32 @@ Dashboard completo de dados e métricas para líderes avaliarem o impacto de sua
 - `createAcao(data, userId)` — Cria ação vinculada ao líder autenticado
 - `getAcoes(filters)` — Busca ações com filtros opcionais
 - `getAcaoById(id)` — Busca ação com dados do criador e contagem de inscritos
-- `updateAcao(id, data, userId)` — Atualiza apenas se o `userId` for o criador
-- `deleteAcao(id, userId)` — Remove apenas se o `userId` for o criador
+- `updateAcao(id, data, userId)` — Atualiza apenas se o `userId` for o criador; dispara notificações para todos os inscritos ativos informando as alterações
+- `deleteAcao(id, userId)` — Remove apenas se o `userId` for o criador; dispara notificações para todos os inscritos ativos informando o cancelamento
 - `countInscritos(acaoId)` — Conta apenas inscrições com status `ACTIVE`
 
 **`inscricaoService.js`**
-- `createInscricao(userId, actionId)` — Verifica se já está inscrito, verifica vagas disponíveis (`slots > inscritos ativos`) e cria o registro com status `ACTIVE`
+- `createInscricao(userId, actionId)` — Verifica duplicidade e vagas disponíveis; cria a inscrição com status `ACTIVE` (se `requiresApproval = false`) ou `PENDING` (se `requiresApproval = true`); notifica o líder sobre nova inscrição pendente quando aplicável
+- `approveInscricao(id, liderId)` — Muda status de `PENDING` para `ACTIVE`; notifica o voluntário com mensagem de aprovação; retorna erro caso o solicitante não seja o líder da ação
+- `rejectInscricao(id, liderId)` — Muda status de `PENDING` para `CANCELLED`; notifica o voluntário com mensagem de rejeição e motivo opcional
 - `getInscricoesByUser(userId)` — Lista todas as inscrições do voluntário
 - `getInscricoesByAcao(actionId, liderId)` — Lista inscritos, verificando se o solicitante é o líder da ação
 - `cancelInscricao(id, userId)` — Muda status para `CANCELLED`, liberando a vaga automaticamente
+
+**`notificacaoService.js`**
+- `createNotificacao(userId, type, title, body, actionId?)` — Cria uma notificação para o destinatário especificado
+- `getNotificacoesByUser(userId, page, limit)` — Retorna notificações paginadas do usuário
+- `countUnread(userId)` — Retorna a contagem de notificações não lidas
+- `markAsRead(id, userId)` — Marca notificação como lida, verificando que pertence ao usuário
+- `markAllAsRead(userId)` — Marca todas as notificações do usuário como lidas
+- `deleteNotificacao(id, userId)` — Remove notificação do usuário
+
+**`mensagemService.js`**
+- `sendBulkMessage(actionId, liderId, subject, body, channel)` — Valida que o líder é criador da ação; recupera todos os inscritos com status `ACTIVE`; dispara os envios via `emailService` e/ou `notificacaoService` conforme o `channel` selecionado; retorna relatório com total de destinatários, sucessos e falhas
+
+**`emailService.js`**
+- `sendEmail(to, subject, html)` — Envia e-mail transacional para um destinatário via SMTP configurado
+- `sendBulkEmail(recipients, subject, html)` — Envia e-mail em lote com controle de concorrência (throttling) para evitar bloqueio do servidor SMTP
 
 ---
 
@@ -802,12 +924,21 @@ Dashboard completo de dados e métricas para líderes avaliarem o impacto de sua
 O líder acessa o sistema, clica em "Criar conta", preenche nome, e-mail, senha e seleciona o perfil "Líder Comunitário". Após o registro, é direcionado automaticamente para o painel de ações.
 
 **2. Cadastro de uma ação**
-No menu, acessa "Cadastrar Ação" e preenche o formulário completo — por exemplo: título "Mutirão de Limpeza do Parque", data 15/03/2025 às 08:00, local "Parque Municipal - Entrada Principal", prioridade Alta, categoria Meio Ambiente e 30 vagas disponíveis. Após salvar, a ação aparece imediatamente na home e no calendário.
+No menu, acessa "Cadastrar Ação" e preenche o formulário completo — por exemplo: título "Mutirão de Limpeza do Parque", data 15/03/2025 às 08:00, local "Parque Municipal - Entrada Principal", prioridade Alta, categoria Meio Ambiente e 30 vagas disponíveis. Pode opcionalmente marcar "Requer aprovação manual" para revisar cada inscrição antes de confirmá-la. Após salvar, a ação aparece imediatamente na home e no calendário.
 
-**3. Acompanhamento de inscrições**
+**3. Edição de uma ação e notificação automática**
+Ao editar uma ação já existente, o líder atualiza os campos necessários (ex: mudança de local ou horário) e salva. O sistema envia automaticamente uma notificação in-app e um e-mail para todos os voluntários com inscrição ativa, informando que a ação foi atualizada e destacando as alterações.
+
+**4. Aprovação de inscrições**
+Para ações com aprovação manual habilitada, o líder acessa o painel e visualiza a aba "Pendentes" com a lista de voluntários aguardando confirmação. Pode aprovar ou rejeitar individualmente com um clique. O voluntário recebe uma notificação imediata com o resultado.
+
+**5. Acompanhamento de inscrições**
 No painel, seleciona a ação e visualiza a tabela com todos os voluntários inscritos — nome, e-mail, data de inscrição e status. Aplica filtros, faz buscas e exporta a lista em CSV para uso offline.
 
-**4. Análise de relatórios**
+**6. Envio de mensagem em lote**
+Antes do evento, o líder acessa "Enviar Mensagem", seleciona a ação e redige um comunicado de última hora (ex: mudança no ponto de encontro). Escolhe enviar por e-mail e notificação in-app simultaneamente. Após confirmar, o sistema dispara a mensagem para todos os inscritos ativos e exibe um relatório de entrega.
+
+**7. Análise de relatórios**
 Na página de relatórios, seleciona um período e visualiza gráficos comparativos. Identifica, por exemplo, que a categoria Saúde tem maior engajamento médio e planeja as próximas ações com base nessa informação.
 
 ---
@@ -818,9 +949,12 @@ Na página de relatórios, seleciona um período e visualiza gráficos comparati
 O voluntário acessa a home sem precisar fazer login. Filtra por categoria "Educação" e encontra "Aulas de Reforço Escolar". Clica no card para ver os detalhes completos.
 
 **2. Inscrição**
-Na página de detalhes, vê que há 8 vagas disponíveis de um total de 20. Clica em "Quero me inscrever". Por não estar logado, é redirecionado para o login — após autenticação, retorna automaticamente para a ação e confirma a inscrição. Recebe um toast de sucesso e o contador é atualizado para 9/20.
+Na página de detalhes, vê que há 8 vagas disponíveis de um total de 20. Clica em "Quero me inscrever". Por não estar logado, é redirecionado para o login — após autenticação, retorna automaticamente para a ação e confirma a inscrição. Se a ação não exige aprovação, recebe confirmação imediata e o contador atualiza para 9/20. Se a ação exige aprovação, a inscrição fica com status "Aguardando aprovação" e o voluntário é notificado assim que o líder tomar uma decisão.
 
-**3. Gerenciamento da inscrição**
+**3. Recebimento de notificações**
+O voluntário acessa a central de notificações e visualiza: aprovação da sua inscrição, um comunicado enviado em lote pelo líder com atualização sobre o local do evento e uma notificação de que outra ação em que está inscrito teve sua data alterada. Clica em cada notificação para ir diretamente à ação relacionada.
+
+**4. Gerenciamento da inscrição**
 No perfil, acessa "Minhas Inscrições" e visualiza o histórico. Decide cancelar uma inscrição por conflito de agenda, confirma no modal de confirmação e a vaga é liberada automaticamente para outros voluntários.
 
 ---
@@ -879,8 +1013,8 @@ No perfil, acessa "Minhas Inscrições" e visualiza o histórico. Decide cancela
 - Voluntário precisa estar autenticado para se inscrever
 - Sistema verifica a disponibilidade de vagas antes de confirmar
 - Inscrição duplicada é bloqueada com mensagem explicativa
-- Confirmação imediata com toast de sucesso
-- Contador de vagas atualizado em tempo real
+- Para ações sem aprovação: confirmação imediata com toast de sucesso e contador atualizado
+- Para ações com aprovação: inscrição criada com status `PENDING` e mensagem informativa ao voluntário
 
 `Backend: POST /registrations` | `Frontend: InscricaoVoluntario.jsx / ActionDetail.jsx`
 
@@ -907,6 +1041,7 @@ No perfil, acessa "Minhas Inscrições" e visualiza o histórico. Decide cancela
 - Exibe: título, descrição completa, data, hora, local, prioridade, categoria e nome do líder responsável
 - Exibe: contador de vagas (inscritos/limite) e barra de progresso visual
 - Exibe: mensagem dinâmica de disponibilidade (vagas disponíveis / poucas vagas / esgotado)
+- Exibe: indicação se a ação requer aprovação manual do líder
 - Botão de inscrição desabilitado quando não há mais vagas
 
 `Backend: GET /actions/:id` | `Frontend: ActionDetail.jsx`
@@ -966,7 +1101,7 @@ No perfil, acessa "Minhas Inscrições" e visualiza o histórico. Decide cancela
 **Critérios de aceitação:**
 - Toast de sucesso exibido por 4 segundos após inscrição bem-sucedida
 - Mensagem de erro específica em caso de falha (vagas esgotadas, já inscrito, etc.)
-- Botão de inscrição muda para "Inscrito ✓" após confirmação
+- Botão de inscrição muda para "Inscrito ✓" após confirmação ou "Aguardando aprovação" quando aplicável
 - Contador de vagas atualizado imediatamente na tela
 
 `Backend: POST /registrations` | `Frontend: React Toastify em InscricaoVoluntario.jsx`
@@ -1048,6 +1183,78 @@ No perfil, acessa "Minhas Inscrições" e visualiza o histórico. Decide cancela
 
 ---
 
+### US15 — Edição de Informações de Ações
+
+**Como** líder, **quero** editar as informações de uma ação já cadastrada, **para** corrigir dados ou comunicar mudanças de planejamento sem precisar excluir e recriar o evento.
+
+**Critérios de aceitação:**
+- Somente o líder criador da ação pode editá-la
+- Formulário de edição pré-preenchido com os dados atuais da ação
+- Todos os campos do cadastro original são editáveis (exceto ID e data de criação)
+- Ao salvar, o sistema registra a data de atualização (`updatedAt`)
+- Uma notificação in-app é enviada automaticamente para todos os voluntários com inscrição ativa, informando que a ação foi modificada
+- O e-mail de notificação destaca os campos que foram alterados
+- O histórico de inscrições é preservado integralmente após qualquer edição
+
+`Backend: PUT /actions/:id + notificacaoService.js` | `Frontend: CadastroAcoes.jsx (modo edição), ActionDetail.jsx`
+
+---
+
+### US16 — Fluxo de Aprovação de Inscrições
+
+**Como** líder, **quero** revisar e aprovar manualmente cada inscrição antes de confirmá-la, **para** garantir que apenas voluntários adequados participem de ações que exijam critérios específicos.
+
+**Critérios de aceitação:**
+- Checkbox "Requer aprovação manual" disponível no formulário de cadastro e edição da ação
+- Inscrições em ações com aprovação habilitada são criadas com status `PENDING`
+- Voluntário vê o status "Aguardando aprovação" no perfil e na página da ação
+- Líder visualiza aba "Pendentes" no painel com a lista de inscrições aguardando decisão
+- Cada inscrição pendente exibe botões de aprovar e rejeitar
+- Ao aprovar: status muda para `ACTIVE`, vaga é contabilizada e voluntário recebe notificação de aprovação
+- Ao rejeitar: status muda para `CANCELLED`, vaga não é contabilizada e voluntário recebe notificação de rejeição
+- Líder recebe notificação in-app a cada nova inscrição pendente em suas ações
+
+`Backend: PUT /registrations/:id/approve, PUT /registrations/:id/reject` | `Frontend: PainelInscricoes.jsx, AprovacaoModal.jsx`
+
+---
+
+### US17 — Notificações Automáticas
+
+**Como** usuário, **quero** receber notificações automáticas sobre eventos relevantes para mim, **para** me manter informado sem precisar verificar o sistema manualmente.
+
+**Critérios de aceitação:**
+- Badge com contagem de não lidas exibido na Navbar, atualizado a cada 60 segundos (polling)
+- Voluntário recebe notificação quando: inscrição é aprovada, inscrição é rejeitada, ação em que está inscrito é editada, ação em que está inscrito é cancelada, líder envia mensagem em lote
+- Líder recebe notificação quando: novo voluntário se inscreve em uma de suas ações com aprovação habilitada
+- Central de notificações exibe todas as notificações em ordem cronológica
+- Notificações não lidas são destacadas visualmente
+- Clicar em uma notificação a marca como lida e redireciona para a ação relacionada
+- Botão "Marcar todas como lidas" disponível na central
+- Exclusão individual de notificações
+
+`Backend: GET /notifications, PUT /notifications/:id/read, PUT /notifications/read-all, DELETE /notifications/:id` | `Frontend: Notificacoes.jsx, NotificacaoBadge.jsx, useNotificacoes.js`
+
+---
+
+### US18 — Envio de Mensagens em Lote
+
+**Como** líder, **quero** enviar uma mensagem para todos os voluntários inscritos em uma ação, **para** comunicar informações importantes de forma centralizada e eficiente, sem depender de grupos de WhatsApp ou e-mails manuais.
+
+**Critérios de aceitação:**
+- Acesso exclusivo para líderes autenticados
+- Líder seleciona a ação destinatária a partir de uma lista das suas ações
+- O sistema exibe o número de destinatários (inscritos ativos) antes do envio
+- Campos obrigatórios: assunto (para e-mail) e corpo da mensagem
+- Seleção do canal de envio: e-mail, notificação in-app ou ambos
+- Tela de confirmação com resumo (ação, destinatários, canal) antes do disparo final
+- Envio para inscrições com status `ACTIVE` somente (inscrições `PENDING` e `CANCELLED` são excluídas)
+- Após o envio, exibe relatório com: total de destinatários, envios bem-sucedidos e falhas
+- Envios por e-mail utilizam throttling para evitar bloqueio pelo servidor SMTP
+
+`Backend: POST /messages/bulk` | `Frontend: EnvioMensagens.jsx, ActionDetail.jsx`
+
+---
+
 ## Variáveis de Ambiente
 
 ### Backend (`/backend/.env`)
@@ -1064,6 +1271,7 @@ No perfil, acessa "Minhas Inscrições" e visualiza o histórico. Decide cancela
 | `EMAIL_USER` | Endereço de e-mail remetente | `noreply@vizinhancadigital.com` |
 | `EMAIL_PASS` | Senha ou App Password do e-mail remetente | `senha_ou_app_password` |
 | `FRONTEND_URL` | URL do frontend (usada nos links dos e-mails enviados) | `http://localhost:5173` |
+| `EMAIL_BULK_DELAY_MS` | Intervalo em milissegundos entre envios em lote (throttling) | `200` |
 
 ### Frontend (`/frontend/.env`)
 
@@ -1071,6 +1279,7 @@ No perfil, acessa "Minhas Inscrições" e visualiza o histórico. Decide cancela
 |---|---|---|
 | `VITE_API_URL` | URL base da API do backend | `http://localhost:3001` |
 | `VITE_APP_NAME` | Nome da aplicação (usado no título das páginas) | `Vizinhança Digital` |
+| `VITE_NOTIFICATION_POLL_INTERVAL` | Intervalo de polling de notificações em milissegundos | `60000` |
 
 ---
 
@@ -1180,5 +1389,5 @@ Os services contêm **apenas regras de negócio** e seguem princípios claros:
 | **Segurança digital** | Autenticação JWT, senhas criptografadas com bcrypt, controle de acesso por perfil e proteção de rotas garantem a privacidade dos dados de voluntários e líderes |
 | **Visibilidade ampliada** | Ações antes restritas ao alcance do grupo de WhatsApp do líder passam a ser visíveis para qualquer pessoa com acesso à internet, multiplicando o alcance das iniciativas |
 | **Memória institucional** | O histórico permanente de ações e participações cria um registro que transcende gestões individuais, permitindo aprendizado contínuo e avaliação de longo prazo do impacto comunitário |
-
----
+| **Comunicação centralizada** | O módulo de mensagens em lote elimina a dependência de canais externos para comunicados urgentes, garantindo que todos os inscritos sejam alcançados simultaneamente via e-mail e notificação in-app |
+| **Controle de qualidade** | O fluxo de aprovação manual permite que líderes curem a participação em ações com requisitos específicos, elevando a qualidade e o comprometimento dos voluntários |
