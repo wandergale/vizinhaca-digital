@@ -1,4 +1,6 @@
 const prisma = require("../config/prisma");
+const AppError = require("../utils/appError");
+const NotificationsService = require("../services/notifications");
 
 class RegistrationService {
     static async createRegistration(userId, actionId) {
@@ -63,9 +65,20 @@ class RegistrationService {
         if (!registration) {
             throw new AppError('Inscrição não encontrada', 404);
         }
+
+        // Temporariamente, vamos apenas enviar uma notificação para o usuário.
+        const action = await prisma.action.findUnique({
+            where: { id: registration.actionId },
+        });
+        await NotificationsService.sendNotification({
+            userId: registration.userId,
+            title: 'Inscrição Aprovada',
+            message: `Sua inscrição para a ação ${action.title} foi aprovada!`,
+        });
+
         await prisma.registration.update({
             where: { id: registrationId },
-            data: { approved: true },
+            data: { status: RegistrationStatus.APPROVED },
         });
         return registration;
     }
@@ -78,9 +91,20 @@ class RegistrationService {
         if (!registration) {
             throw new AppError('Inscrição não encontrada', 404);
         }
+
+        const action = await prisma.action.findUnique({
+            where: { id: registration.actionId },
+        });
+
+        await NotificationsService.sendNotification({
+            userId: registration.userId,
+            title: 'Inscrição Rejeitada',
+            message: `Sua inscrição para a ação ${action.title} foi rejeitada.`,
+        });
+
         await prisma.registration.update({
             where: { id: registrationId },
-            data: { status: RegistrationStatus.REGECTED },
+            data: { status: RegistrationStatus.REJECTED },
         });
         return registration;
     }

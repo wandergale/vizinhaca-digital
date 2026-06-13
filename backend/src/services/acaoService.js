@@ -1,5 +1,6 @@
 const prisma = require('../config/prisma.js');
 const AppError = require('../utils/appError.js');
+const NotificationsService = require('./notifications.js');
 
 class ActionsService {
     static async listActions() {
@@ -42,6 +43,11 @@ class ActionsService {
         if (!action) {
             throw new AppError('Ação não encontrada', 404);
         }
+
+        await NotificationsService.sendNotification({
+            title: 'Ação Atualizada',
+            message: `A ação "${action.title}" foi atualizada. Verifique os detalhes para mais informações.`,
+        });
 
         return action;
     }

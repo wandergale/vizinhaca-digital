@@ -43,9 +43,9 @@ class AcaoController {
 
     static async updateAction(req, res, next) {
         const { id } = req.params;
-        const { title, description, date, location } = req.body;
+        const { title, description, date, location, priority } = req.body;
         try {
-            const action = await ActionService.updateAction(id, { title, description, date, location });
+            const action = await ActionService.updateAction(id, { title, description, date, location, priority });
             res.json(action);
         } catch (error) {
             next(error);
