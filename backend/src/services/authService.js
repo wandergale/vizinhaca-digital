@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const AppError = require('../utils/appError.js');
 const { validateEmail } = require('../utils/validators.js');
 const { generateToken, verifyToken } = require('../utils/jwt.js');
-const { hashPassword } = require('../utils/bcrypt.js');
+const { hashPassword, comparePassword } = require('../utils/bcrypt.js');
 
 class AuthService {
     static async register(name, email, password) {
@@ -41,7 +41,7 @@ class AuthService {
 
         if (!isMatch) { throw new AppError('Email ou senha inválidos', 401); }
 
-        const token = generateToken({ id: user.id, email: user.email, name: user.name });
+        const token = generateToken({ id: user.id, email: user.email, name: user.name, role: user.role });
 
         return token;
 

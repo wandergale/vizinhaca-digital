@@ -54,6 +54,36 @@ class RegistrationService {
         });
         return registrations;
     }
+
+    static async aproveRegistration(registrationId) {
+        // Lógica para aprovar uma inscrição (pode ser usado por líderes)
+        const registration = await prisma.registration.findUnique({
+            where: { id: registrationId },
+        });
+        if (!registration) {
+            throw new AppError('Inscrição não encontrada', 404);
+        }
+        await prisma.registration.update({
+            where: { id: registrationId },
+            data: { approved: true },
+        });
+        return registration;
+    }
+
+    static async rejectRegistration(registrationId) {
+        // Lógica para rejeitar uma inscrição (pode ser usado por líderes)
+        const registration = await prisma.registration.findUnique({
+            where: { id: registrationId },
+        });
+        if (!registration) {
+            throw new AppError('Inscrição não encontrada', 404);
+        }
+        await prisma.registration.update({
+            where: { id: registrationId },
+            data: { status: RegistrationStatus.REGECTED },
+        });
+        return registration;
+    }
 }
 
 module.exports = RegistrationService;

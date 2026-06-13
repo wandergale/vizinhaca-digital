@@ -17,5 +17,7 @@ router.get('/my', authMiddleware, RegistrationController.getMyRegistrations);
 router.delete('/:id', authMiddleware, RegistrationController.cancelRegistration);
 router.get('/:id', authMiddleware, RegistrationController.getRegistrationById);
 router.get('/', [authMiddleware, roleMiddleware('LEADER')], RegistrationController.listRegistrations);
+router.put('/:id/approve', [authMiddleware, roleMiddleware('LEADER')], RegistrationController.aproveRegistration);
+router.put('/:id/reject', [authMiddleware, roleMiddleware('LEADER')], RegistrationController.rejectRegistration);
 
 module.exports = router;

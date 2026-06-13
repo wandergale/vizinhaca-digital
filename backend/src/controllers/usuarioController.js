@@ -2,7 +2,7 @@ const UsersService = require("../services/usuarioService");
 
 class UsersController {
 
-    static async getAll(req, res) {
+    static async getAll(req, res, next) {
         try {
             const users = await UsersService.listUsers();
             return res.json(users);
@@ -11,7 +11,7 @@ class UsersController {
         }
     }
 
-    static async getById(req, res) {
+    static async getById(req, res, next) {
         const userId = req.params.id;
         try {
             const user = await UsersService.getUserById(userId);
@@ -21,7 +21,7 @@ class UsersController {
         }
     }
 
-    static async getByEmail(req, res) {
+    static async getByEmail(req, res, next) {
         const email = req.query.email;
         try {
             const user = await UsersService.getUserByEmail(email);

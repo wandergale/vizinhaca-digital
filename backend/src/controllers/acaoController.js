@@ -12,7 +12,7 @@
 const { ActionService } = require("../services");
 
 class AcaoController {
-    static async listActions(req, res) {
+    static async listActions(req, res, next) {
         try {
             const actions = await ActionService.listActions();
             res.json(actions);
@@ -21,7 +21,7 @@ class AcaoController {
         }
     }
 
-    static async getAction(req, res) {
+    static async getAction(req, res, next) {
         const { id } = req.body;
         try {
             const action = await ActionService.getAction(id);
@@ -31,7 +31,7 @@ class AcaoController {
         }
     }
 
-    static async createAction(req, res) {
+    static async createAction(req, res, next) {
         const { title, description, date, location } = req.body;
         try {
             const action = await ActionService.createAction({ title, description, date, location });
@@ -41,7 +41,7 @@ class AcaoController {
         }
     }
 
-    static async updateAction(req, res) {
+    static async updateAction(req, res, next) {
         const { id } = req.params;
         const { title, description, date, location } = req.body;
         try {
@@ -52,7 +52,7 @@ class AcaoController {
         }
     }
 
-    static async deleteAction(req, res) {
+    static async deleteAction(req, res, next) {
         const { id } = req.params;
         try {
             await ActionService.deleteAction(id);

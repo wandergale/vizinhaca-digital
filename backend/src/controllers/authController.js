@@ -11,7 +11,7 @@
 const AuthService = require('../services/authService.js');
 
 class AuthController {
-    static async register(req, res) {
+    static async register(req, res, next) {
         const { name, email, password } = req.body;
 
         try {
@@ -23,7 +23,7 @@ class AuthController {
         }
     }
 
-    static async login(req, res) {
+    static async login(req, res, next) {
         const { email, password } = req.body;
 
         try {
@@ -35,7 +35,7 @@ class AuthController {
         }
     }
 
-    static async me(req, res) {
+    static async me(req, res, next) {
         try {
             const user = await AuthService.me(req.user.id);
 
@@ -46,7 +46,7 @@ class AuthController {
 
     }
 
-    static async updateMe(req, res) {
+    static async updateMe(req, res, next) {
         try {
             const user = await AuthService.updateMe(req.user.id, req.body);
             return res.json(user);
@@ -55,7 +55,7 @@ class AuthController {
         }
     }
 
-    static async deleteMe(req, res) {
+    static async deleteMe(req, res, next) {
         try {
             await AuthService.deleteMe(req.user.id);
             return res.json({ message: 'Usuário removido com sucesso' });
@@ -64,7 +64,7 @@ class AuthController {
         }
     }
 
-    static async recoverPassword(req, res) {
+    static async recoverPassword(req, res, next) {
         try {
             const result = await AuthService.recoverPassword(req.body.email);
             return res.json(result.message);

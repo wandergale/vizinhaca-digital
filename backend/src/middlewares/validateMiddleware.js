@@ -5,6 +5,8 @@
 // Uso: router.post('/', authMiddleware, roleMiddleware('LEADER'), createAction)
 function roleMiddleware(...allowedRoles) {
     return (req, res, next) => {
+        console.log('Role do usuário:', req.user?.role);
+        console.log('Roles permitidas:', allowedRoles);
         if (!req.user || !allowedRoles.includes(req.user.role)) {
             return res.status(403).json({
                 message: 'Acesso negado'

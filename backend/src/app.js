@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-const { authRoutes, actionsRoutes, registrationsRoutes } = require('./routes');
+const { authRoutes, actionsRoutes, registrationsRoutes, notificationsRoutes } = require('./routes');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
@@ -19,6 +19,7 @@ app.get('/health', (req, res) => {
 app.use('/auth', authRoutes);
 app.use('/actions', actionsRoutes);
 app.use('/registrations', registrationsRoutes);
+app.use('/notifications', notificationsRoutes);
 
 // Middleware de tratamento de erros
 app.use(errorMiddleware);
