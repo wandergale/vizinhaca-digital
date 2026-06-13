@@ -4,13 +4,14 @@ import acaoService from '../services/acaoService';
 import { rotuloPrioridade } from '../services/mockData';
 import '../styles/actions.css';
 
+import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
+
 export default function Actions() {
   const [acoes, setAcoes] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [filtro, setFiltro] = useState('');
 
   useEffect(() => {
-    // GET /actions (com fallback para mock dentro do service)
     acaoService.listar()
       .then((dados) => setAcoes(dados))
       .finally(() => setCarregando(false));
@@ -46,8 +47,8 @@ export default function Actions() {
               <h3>{acao.title}</h3>
               <p className="action-card-desc">{acao.description}</p>
               <div className="action-card-meta">
-                <span>📅 {new Date(acao.date).toLocaleDateString('pt-BR')}</span>
-                <span>📍 {acao.location}</span>
+                <span><FaCalendarAlt /> {new Date(acao.date).toLocaleDateString('pt-BR')}</span>
+                <span><FaMapMarkerAlt /> {acao.location}</span>
               </div>
             </Link>
           ))}
