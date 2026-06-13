@@ -1,18 +1,22 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import '../styles/sidebar.css';
 
-// Links de navegação da sidebar — cada um aponta para uma rota real do app.
+import { 
+  FaHome, FaClipboardList, FaCalendarAlt, FaPlus, FaUserCheck, 
+  FaRegListAlt, FaCheckSquare, FaBell, FaEnvelope, FaChartBar, FaUsers 
+} from 'react-icons/fa';
+
 const NAV_LINKS = [
-  { label: 'Início',              path: '/home',                icon: '🏠' },
-  { label: 'Ações',               path: '/acoes',               icon: '📋' },
-  { label: 'Calendário',          path: '/calendario',          icon: '📅' },
-  { label: 'Cadastro de Ações',   path: '/cadastro-acoes',      icon: '➕' },
-  { label: 'Inscrição',           path: '/inscricao-voluntario', icon: '🙋' },
-  { label: 'Minhas Inscrições',   path: '/minhas-inscricoes',   icon: '📝' },
-  { label: 'Painel de Inscrições', path: '/painel-inscricoes',  icon: '✅' },
-  { label: 'Notificações',        path: '/notificacoes',        icon: '🔔' },
-  { label: 'Mensagens',           path: '/mensagens',           icon: '✉️' },
-  { label: 'Relatórios',          path: '/relatorios',          icon: '📊' },
+  { label: 'Início',              path: '/home',                icon: <FaHome /> },
+  { label: 'Ações',               path: '/acoes',               icon: <FaClipboardList /> },
+  { label: 'Calendário',          path: '/calendario',          icon: <FaCalendarAlt /> },
+  { label: 'Cadastro de Ações',   path: '/cadastro-acoes',      icon: <FaPlus /> },
+  { label: 'Inscrição',           path: '/inscricao-voluntario', icon: <FaUserCheck /> },
+  { label: 'Minhas Inscrições',   path: '/minhas-inscricoes',   icon: <FaRegListAlt /> },
+  { label: 'Painel de Inscrições', path: '/painel-inscricoes',  icon: <FaCheckSquare /> },
+  { label: 'Notificações',        path: '/notificacoes',        icon: <FaBell /> },
+  { label: 'Mensagens',           path: '/mensagens',           icon: <FaEnvelope /> },
+  { label: 'Relatórios',          path: '/relatorios',          icon: <FaChartBar /> },
 ];
 
 export default function Sidebar() {
@@ -28,7 +32,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <NavLink to="/home" className="sidebar-brand">
-        <span className="sidebar-brand-icon">🏘️</span>
+        <span className="sidebar-brand-icon"><FaUsers /></span>
         <span className="sidebar-brand-name">Vizinhança Digital</span>
       </NavLink>
 
