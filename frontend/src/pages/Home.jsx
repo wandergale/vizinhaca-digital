@@ -34,7 +34,7 @@ export default function Home() {
     <div className="home">
       <header className="home-header">
         <h1>Que bom ter você por aqui, {usuario}</h1>
-        <p>Seja muito bem-vindo ao Vizinhança Digital. Escolha por onde começar.</p>
+        <p>Seja muito bem-vindo ao Vizinhança Digital. Escolha uma das opções e participe das ações da comunidade.</p>
       </header>
 
       <section className="home-stats">
