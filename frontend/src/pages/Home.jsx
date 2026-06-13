@@ -3,17 +3,21 @@ import { Link } from 'react-router-dom';
 import acaoService from '../services/acaoService';
 import '../styles/home.css';
 
-// Cartões de navegação que dão acesso a todas as telas do sistema.
+import { 
+  FaClipboardList, FaPlus, FaUserCheck, FaRegListAlt, FaCheckSquare, 
+  FaCalendarAlt, FaBell, FaEnvelope, FaChartBar 
+} from 'react-icons/fa';
+
 const ATALHOS = [
-  { path: '/acoes',               icon: '📋', titulo: 'Ações',              desc: 'Veja todas as ações comunitárias disponíveis.' },
-  { path: '/cadastro-acoes',      icon: '➕', titulo: 'Cadastro de Ações',  desc: 'Crie e gerencie novas ações.' },
-  { path: '/inscricao-voluntario', icon: '🙋', titulo: 'Inscrição',         desc: 'Inscreva-se como voluntário em uma ação.' },
-  { path: '/minhas-inscricoes',   icon: '📝', titulo: 'Minhas Inscrições',  desc: 'Edite ou cancele suas inscrições.' },
-  { path: '/painel-inscricoes',   icon: '✅', titulo: 'Painel de Inscrições', desc: 'Aprove ou rejeite inscrições (líder).' },
-  { path: '/calendario',          icon: '📅', titulo: 'Calendário',         desc: 'Visualize as ações por data.' },
-  { path: '/notificacoes',        icon: '🔔', titulo: 'Notificações',       desc: 'Acompanhe avisos e atualizações.' },
-  { path: '/mensagens',           icon: '✉️', titulo: 'Mensagens',          desc: 'Envie mensagens em lote aos voluntários.' },
-  { path: '/relatorios',          icon: '📊', titulo: 'Relatórios',         desc: 'Gere relatórios das ações.' },
+  { path: '/acoes',               icon: <FaClipboardList />, titulo: 'Ações',              desc: 'Veja todas as ações comunitárias disponíveis.' },
+  { path: '/cadastro-acoes',      icon: <FaPlus />,          titulo: 'Cadastro de Ações',  desc: 'Crie e gerencie novas ações.' },
+  { path: '/inscricao-voluntario', icon: <FaUserCheck />,    titulo: 'Inscrição',          desc: 'Inscreva-se como voluntário em uma ação.' },
+  { path: '/minhas-inscricoes',   icon: <FaRegListAlt />,    titulo: 'Minhas Inscrições',  desc: 'Edite ou cancele suas inscrições.' },
+  { path: '/painel-inscricoes',   icon: <FaCheckSquare />,   titulo: 'Painel de Inscrições', desc: 'Aprove ou rejeite inscrições (líder).' },
+  { path: '/calendario',          icon: <FaCalendarAlt />,   titulo: 'Calendário',         desc: 'Visualize as ações por data.' },
+  { path: '/notificacoes',        icon: <FaBell />,          titulo: 'Notificações',       desc: 'Acompanhe avisos e atualizações.' },
+  { path: '/mensagens',           icon: <FaEnvelope />,      titulo: 'Mensagens',          desc: 'Envie mensagens em lote aos voluntários.' },
+  { path: '/relatorios',          icon: <FaChartBar />,      titulo: 'Relatórios',         desc: 'Gere relatórios das ações.' },
 ];
 
 export default function Home() {
@@ -21,7 +25,9 @@ export default function Home() {
   const [totalAcoes, setTotalAcoes] = useState(null);
 
   useEffect(() => {
-    acaoService.listar().then((acoes) => setTotalAcoes(acoes.length)).catch(() => setTotalAcoes(0));
+    acaoService.listar()
+      .then((acoes) => setTotalAcoes(acoes.length))
+      .catch(() => setTotalAcoes(0));
   }, []);
 
   return (
