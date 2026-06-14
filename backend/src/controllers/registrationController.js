@@ -6,6 +6,13 @@
 // - list: listar todas as inscrições (somente para líderes) ✅
 
 const { RegistrationService } = require("../services");
+const AppError = require("../utils/appError");
+
+function validateRegistrationId(id) {
+    if (!id) {
+        throw new AppError('ID da inscrição é obrigatório', 400);
+    }
+}
 
 // - cancel: cancelar inscrição do usuário autenticado
 class RegistrationController {
@@ -35,6 +42,7 @@ class RegistrationController {
         const registrationId = req.params.id;
         const userId = req.user.id;
         try {
+            validateRegistrationId(registrationId);
             await RegistrationService.cancelRegistration(userId, registrationId);
             return res.json({ message: 'Inscrição cancelada com sucesso' });
         } catch (error) {
@@ -45,6 +53,7 @@ class RegistrationController {
     static async getRegistrationById(req, res, next) {
         const registrationId = req.params.id;
         try {
+            validateRegistrationId(registrationId);
             const registration = await RegistrationService.getRegistrationById(registrationId);
             return res.json(registration);
         } catch (error) {
@@ -61,10 +70,11 @@ class RegistrationController {
         }
     }
 
-    static async aproveRegistration(req, res, next) {
+    static async approveRegistration(req, res, next) {
         const registrationId = req.params.id;
         try {
-            await RegistrationService.aproveRegistration(registrationId);
+            validateRegistrationId(registrationId);
+            await RegistrationService.approveRegistration(registrationId);
             return res.json({ message: 'Inscrição aprovada com sucesso' });
         } catch (error) {
             next(error);
@@ -74,6 +84,7 @@ class RegistrationController {
     static async rejectRegistration(req, res, next) {
         const registrationId = req.params.id;
         try {
+            validateRegistrationId(registrationId);
             await RegistrationService.rejectRegistration(registrationId);
             return res.json({ message: 'Inscrição rejeitada com sucesso' });
         } catch (error) {

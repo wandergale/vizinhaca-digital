@@ -1,10 +1,22 @@
 const prisma = require("../config/prisma");
 const AppError = require("../utils/appError");
-const NotificationsService = require("../services/notifications");
+const NotificationsService = require("./notificationService");
+const { RegistrationStatus } = require("@prisma/client");
 
 class RegistrationService {
     static async createRegistration(userId, actionId) {
         // Lógica para criar uma nova inscrição
+        const existringRegistration = await prisma.registration.findFirst({
+            where: {
+                userId,
+                actionId,
+            },
+        });
+
+        if (existringRegistration) {
+            throw new AppError('Você já está inscrito nesta ação', 400);
+        }
+
         const registration = await prisma.registration.create({
             data: {
                 userId,
@@ -57,56 +69,66 @@ class RegistrationService {
         return registrations;
     }
 
-    static async aproveRegistration(registrationId) {
+    static async approveRegistration(registrationId) {
         // Lógica para aprovar uma inscrição (pode ser usado por líderes)
         const registration = await prisma.registration.findUnique({
             where: { id: registrationId },
+            include: {
+                action: true,
+            },
         });
+
+        if (registration.status !== RegistrationStatus.PENDING) {
+            throw new AppError('A inscrição já foi processada', 400);
+        }
+
         if (!registration) {
             throw new AppError('Inscrição não encontrada', 404);
         }
 
-        // Temporariamente, vamos apenas enviar uma notificação para o usuário.
-        const action = await prisma.action.findUnique({
-            where: { id: registration.actionId },
-        });
-        await NotificationsService.sendNotification({
-            userId: registration.userId,
-            title: 'Inscrição Aprovada',
-            message: `Sua inscrição para a ação ${action.title} foi aprovada!`,
-        });
-
-        await prisma.registration.update({
+        const updatedRegistration = await prisma.registration.update({
             where: { id: registrationId },
             data: { status: RegistrationStatus.APPROVED },
         });
-        return registration;
+
+        await NotificationsService.sendNotification(
+            registration.userId,
+            'Inscrição Aprovada',
+            `Sua inscrição para a ação ${registration.action.title} foi aprovada!`,
+        );
+
+        return updatedRegistration;
     }
 
     static async rejectRegistration(registrationId) {
         // Lógica para rejeitar uma inscrição (pode ser usado por líderes)
         const registration = await prisma.registration.findUnique({
             where: { id: registrationId },
+            include: {
+                action: true,
+            },
         });
+
+        if (registration.status !== RegistrationStatus.PENDING) {
+            throw new AppError('A inscrição já foi processada', 400);
+        }
+
         if (!registration) {
             throw new AppError('Inscrição não encontrada', 404);
         }
 
-        const action = await prisma.action.findUnique({
-            where: { id: registration.actionId },
-        });
-
-        await NotificationsService.sendNotification({
-            userId: registration.userId,
-            title: 'Inscrição Rejeitada',
-            message: `Sua inscrição para a ação ${action.title} foi rejeitada.`,
-        });
-
-        await prisma.registration.update({
+        const updatedRegistration = await prisma.registration.update({
             where: { id: registrationId },
             data: { status: RegistrationStatus.REJECTED },
         });
-        return registration;
+
+        await NotificationsService.sendNotification(
+            registration.userId,
+            'Inscrição Rejeitada',
+            `Sua inscrição para a ação ${registration.action.title} foi rejeitada.`,
+        );
+
+        return updatedRegistration;
     }
 }
 

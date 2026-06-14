@@ -11,7 +11,7 @@
 //
 const { ActionService } = require("../services");
 
-class AcaoController {
+class ActionController {
     static async listActions(req, res, next) {
         try {
             const actions = await ActionService.listActions();
@@ -26,6 +26,16 @@ class AcaoController {
         try {
             const action = await ActionService.getAction(id);
             res.json(action);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    static async ActionUsers(req, res, next) {
+        const { id } = req.body;
+        try {
+            const users = await ActionService.ActionUsers(id);
+            res.json(users);
         } catch (error) {
             next(error);
         }
@@ -63,4 +73,4 @@ class AcaoController {
     }
 }
 
-module.exports = AcaoController;
+module.exports = ActionController;

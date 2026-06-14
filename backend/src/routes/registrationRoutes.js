@@ -12,12 +12,19 @@ const router = Router();
 // GET    /registrations/:id       - detalhes de uma inscrição ✅
 // GET    /registrations           - listar todas as inscrições (somente para líderes) ✅
 
-router.post('/', authMiddleware, RegistrationController.createRegistration);
+// GET /registrations - listar ou detalhar inscrições
 router.get('/my', authMiddleware, RegistrationController.getMyRegistrations);
-router.delete('/:id', authMiddleware, RegistrationController.cancelRegistration);
 router.get('/:id', authMiddleware, RegistrationController.getRegistrationById);
 router.get('/', [authMiddleware, roleMiddleware('LEADER')], RegistrationController.listRegistrations);
-router.put('/:id/approve', [authMiddleware, roleMiddleware('LEADER')], RegistrationController.aproveRegistration);
+
+// POST /registrations - inscrever usuário em uma ação
+router.post('/', authMiddleware, RegistrationController.createRegistration);
+
+// PUT /registrations - aprovar ou rejeitar inscrição (somente para líderes)
+router.put('/:id/approve', [authMiddleware, roleMiddleware('LEADER')], RegistrationController.approveRegistration);
 router.put('/:id/reject', [authMiddleware, roleMiddleware('LEADER')], RegistrationController.rejectRegistration);
+
+// DELETE /registrations/:id - cancelar inscrição
+router.delete('/:id', authMiddleware, RegistrationController.cancelRegistration);
 
 module.exports = router;

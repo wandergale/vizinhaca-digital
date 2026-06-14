@@ -1,10 +1,10 @@
-const UsersService = require("../services/usuarioService");
+const UserService = require("../services/usuarioService");
 
-class UsersController {
+class UserController {
 
     static async getAll(req, res, next) {
         try {
-            const users = await UsersService.listUsers();
+            const users = await UserService.listUsers();
             return res.json(users);
         } catch (error) {
             next(error);
@@ -14,7 +14,7 @@ class UsersController {
     static async getById(req, res, next) {
         const userId = req.params.id;
         try {
-            const user = await UsersService.getUserById(userId);
+            const user = await UserService.getUserById(userId);
             return res.json(user);
         } catch (error) {
             next(error);
@@ -24,7 +24,7 @@ class UsersController {
     static async getByEmail(req, res, next) {
         const email = req.query.email;
         try {
-            const user = await UsersService.getUserByEmail(email);
+            const user = await UserService.getUserByEmail(email);
             return res.json(user);
         } catch (error) {
             next(error);
@@ -32,4 +32,4 @@ class UsersController {
     }
 }
 
-module.exports = UsersController;
+module.exports = UserController;

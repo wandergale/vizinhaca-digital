@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-const { authRoutes, actionsRoutes, registrationsRoutes, notificationsRoutes } = require('./routes');
+const { authRoutes, actionRoutes, registrationRoutes, notificationRoutes } = require('./routes');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
@@ -16,10 +16,10 @@ app.get('/health', (req, res) => {
 });
 
 // Rotas
-app.use('/auth', authRoutes);
-app.use('/actions', actionsRoutes);
-app.use('/registrations', registrationsRoutes);
-app.use('/notifications', notificationsRoutes);
+app.use('/auth', authRoutes); // Rota para autenticação
+app.use('/actions', actionRoutes); // Rota para ações comunitárias
+app.use('/registrations', registrationRoutes); // Rota para inscrições
+app.use('/notifications', notificationRoutes); // Rota para notificações
 
 // Middleware de tratamento de erros
 app.use(errorMiddleware);

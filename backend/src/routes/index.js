@@ -1,4 +1,4 @@
 export { default as authRoutes } from './authRoutes.js';
-export { default as actionsRoutes } from './acaoRoutes.js';
-export { default as registrationsRoutes } from './inscricaoRoutes.js';
-export { default as notificationsRoutes } from './notification.js';
+export { default as actionRoutes } from './actionRoutes.js';
+export { default as registrationRoutes } from './registrationRoutes.js';
+export { default as notificationRoutes } from './notificationRoutes.js';

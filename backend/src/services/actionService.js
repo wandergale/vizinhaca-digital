@@ -1,6 +1,16 @@
 const prisma = require('../config/prisma.js');
 const AppError = require('../utils/appError.js');
-const NotificationsService = require('./notifications.js');
+const NotificationsService = require('./notificationService.js');
+
+function validateActionId(id) {
+    if (!id) {
+        throw new AppError('ID da ação é obrigatório', 400);
+    }
+}
+
+function actionNotFound(id) {
+    throw new AppError(`Ação com ID ${id} não encontrada`, 404);
+}
 
 class ActionsService {
     static async listActions() {
@@ -15,14 +25,26 @@ class ActionsService {
     }
 
     static async getAction(id) {
+        validateActionId(id);
         // lógica para buscar ação por ID
         const action = await prisma.action.findUnique({ where: { id } });
 
         if (!action) {
-            throw new AppError('Ação não encontrada', 404);
+            actionNotFound(id);
         }
 
         return action;
+    }
+
+    static async ActionUsers(id) {
+        validateActionId(id);
+        // lógica para buscar usuários inscritos em uma ação
+        const users = await prisma.registration.findMany({
+            where: { actionId: id },
+            include: { user: true }, // incluir detalhes do usuário
+        });
+
+        return users.map(registration => registration.user);
     }
 
     static async createAction(data) {
@@ -41,13 +63,17 @@ class ActionsService {
         const action = await prisma.action.update({ where: { id }, data });
 
         if (!action) {
-            throw new AppError('Ação não encontrada', 404);
+            actionNotFound(id);
         }
 
-        await NotificationsService.sendNotification({
-            title: 'Ação Atualizada',
-            message: `A ação "${action.title}" foi atualizada. Verifique os detalhes para mais informações.`,
-        });
+        const users = action.users; // Supondo que a ação tenha um campo 'users' com os usuários inscritos
+        for (const user of users) {
+            await NotificationsService.sendNotification(
+                user.id,
+                'Ação Atualizada',
+                `A ação "${action.title}" foi atualizada. Verifique os detalhes para mais informações.`,
+            );
+        }
 
         return action;
     }
@@ -57,7 +83,7 @@ class ActionsService {
         const action = await prisma.action.delete({ where: { id } });
 
         if (!action) {
-            throw new AppError('Ação não encontrada', 404);
+            actionNotFound(id);
         }
 
         return;
